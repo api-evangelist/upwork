@@ -1,0 +1,49 @@
+aid: upwork
+name: Upwork
+description: >-
+  Upwork is a global freelancing platform that connects businesses with
+  independent professionals. The Upwork API allows developers to integrate
+  Upwork's features and workflow into their own applications, dashboards, and
+  management systems.
+type: Index
+position: Consumer
+access: 3rd-Party
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Freelancing
+  - Jobs
+  - Talent
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/apis.yml
+created: '2026-03-16'
+modified: '2026-03-16'
+specificationVersion: '0.19'
+apis:
+  - aid: upwork:upwork
+    name: Upwork API
+    description: >-
+      The Upwork API allows developers to integrate Upwork's features and
+      workflow into their own applications, dashboards, and management systems,
+      including access to jobs, freelancers, and reporting.
+    humanURL: https://developers.upwork.com/
+    baseURL: https://www.upwork.com/api
+    tags:
+      - Freelancing
+      - Jobs
+    properties:
+      - type: Documentation
+        url: https://developers.upwork.com/
+      - type: Getting Started
+        url: https://developers.upwork.com/#get-started
+common:
+  - type: Website
+    url: https://www.upwork.com/
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: Portal
+    url: https://www.upwork.com/developer
+  - type: Support
+    url: https://support.upwork.com/hc/en-us/sections/17976982721555-Upwork-API
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
