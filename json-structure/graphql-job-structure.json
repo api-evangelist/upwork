@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-job-structure.json",
+  "name": "Job",
+  "description": "A job posting on the Upwork marketplace",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the job",
+      "example": "~0123456789abcdef"
+    },
+    "title": {
+      "type": "string",
+      "description": "Title of the job posting",
+      "example": "Python Developer for Data Pipeline"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed description of the job requirements",
+      "example": "Looking for an experienced Python developer..."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the job posting",
+      "enum": [
+        "open",
+        "closed",
+        "draft"
+      ],
+      "example": "open"
+    },
+    "budget": {
+      "$ref": "#/components/schemas/Budget"
+    },
+    "skills": {
+      "type": "array",
+      "description": "Required skills for the job",
+      "items": {
+        "$ref": "#/components/schemas/Skill"
+      }
+    },
+    "createdDateTime": {
+      "type": "datetime",
+      "description": "When the job was posted",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "client": {
+      "$ref": "#/components/schemas/Client"
+    },
+    "jobType": {
+      "type": "string",
+      "description": "Type of job (hourly or fixed-price)",
+      "enum": [
+        "hourly",
+        "fixed-price"
+      ],
+      "example": "fixed-price"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Expected duration of the project",
+      "example": "1-3 months"
+    },
+    "experienceLevel": {
+      "type": "string",
+      "description": "Required experience level",
+      "enum": [
+        "entry",
+        "intermediate",
+        "expert"
+      ],
+      "example": "intermediate"
+    }
+  }
+}

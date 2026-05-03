@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-message-list-response-schema.json",
+  "title": "MessageListResponse",
+  "description": "Paginated list of messages",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of messages",
+      "example": 48
+    },
+    "messages": {
+      "type": "array",
+      "description": "List of messages",
+      "items": {
+        "$ref": "#/components/schemas/Message"
+      }
+    }
+  }
+}

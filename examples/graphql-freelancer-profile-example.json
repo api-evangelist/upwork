@@ -1,0 +1,15 @@
+{
+  "id": "~abc123def456",
+  "name": "Python Developer for Data Pipeline",
+  "title": "Python Developer for Data Pipeline",
+  "description": "Sample text",
+  "rate": 75.0,
+  "currency": "USD",
+  "rating": 75.0,
+  "jobsCompleted": 10,
+  "skills": [
+    "Python"
+  ],
+  "country": "US",
+  "availability": "full-time"
+}

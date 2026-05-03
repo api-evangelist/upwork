@@ -1,0 +1,6 @@
+{
+  "access_token": "eyJhbGciOiJSUzI1NiJ9.example",
+  "token_type": "eyJhbGciOiJSUzI1NiJ9.example",
+  "refresh_token": "eyJhbGciOiJSUzI1NiJ9.example",
+  "expires_in": 10
+}

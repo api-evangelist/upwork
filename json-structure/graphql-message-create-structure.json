@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-message-create-structure.json",
+  "name": "MessageCreate",
+  "description": "Request body for sending a message",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "The message text to send",
+      "example": "Thank you for the update, I'll review shortly."
+    }
+  },
+  "required": [
+    "message"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "id": "~abc123def456",
+  "text": "Sample text",
+  "createdDateTime": "2025-03-15T14:30:00Z",
+  "authorId": "example-string",
+  "authorName": "Python Developer for Data Pipeline",
+  "roomId": "example-string"
+}

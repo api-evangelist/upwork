@@ -1,0 +1,12 @@
+{
+  "message": "Sample text",
+  "locations": [
+    {
+      "line": 10,
+      "column": 10
+    }
+  ],
+  "path": [
+    "example-string"
+  ]
+}

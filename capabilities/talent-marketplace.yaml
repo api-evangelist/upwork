@@ -1,0 +1,238 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Upwork Talent Marketplace"
+  description: "Unified workflow capability for finding, evaluating, and engaging freelancers on Upwork. Combines job search, freelancer profile access, contract management, and messaging into a single talent acquisition workflow. Designed for hiring managers, agencies, and developer platforms integrating Upwork talent data."
+  tags:
+    - Upwork
+    - Freelancing
+    - Talent Acquisition
+    - Hiring
+    - Contracts
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+binds:
+  - namespace: env
+    keys:
+      UPWORK_ACCESS_TOKEN: UPWORK_ACCESS_TOKEN
+      UPWORK_CLIENT_ID: UPWORK_CLIENT_ID
+      UPWORK_CLIENT_SECRET: UPWORK_CLIENT_SECRET
+
+capability:
+  consumes:
+    - import: upwork-graphql
+      location: ./shared/graphql-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: upwork-talent-api
+      description: "Unified REST API for Upwork talent marketplace operations."
+      resources:
+        - path: /v1/jobs
+          name: jobs
+          description: "Job search and management"
+          operations:
+            - method: GET
+              name: search-jobs
+              description: "Search for job postings"
+              call: "upwork-graphql.search-jobs"
+              with:
+                q: "rest.q"
+                paging: "rest.paging"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/jobs/{job_id}
+          name: job
+          description: "Individual job operations"
+          operations:
+            - method: GET
+              name: get-job
+              description: "Get job details"
+              call: "upwork-graphql.get-job"
+              with:
+                job_id: "rest.job_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/freelancers
+          name: freelancers
+          description: "Freelancer search"
+          operations:
+            - method: GET
+              name: search-freelancers
+              description: "Search for freelancers"
+              call: "upwork-graphql.search-freelancers"
+              with:
+                q: "rest.q"
+                paging: "rest.paging"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/freelancers/{user_id}
+          name: freelancer
+          description: "Freelancer profile"
+          operations:
+            - method: GET
+              name: get-freelancer
+              description: "Get freelancer profile"
+              call: "upwork-graphql.get-freelancer-profile"
+              with:
+                user_id: "rest.user_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/contracts
+          name: contracts
+          description: "Contract management"
+          operations:
+            - method: GET
+              name: list-contracts
+              description: "List contracts"
+              call: "upwork-graphql.list-contracts"
+              with:
+                status: "rest.status"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/contracts/{contract_id}
+          name: contract
+          description: "Individual contract"
+          operations:
+            - method: GET
+              name: get-contract
+              description: "Get contract details"
+              call: "upwork-graphql.get-contract"
+              with:
+                contract_id: "rest.contract_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/rooms/{room_id}/messages
+          name: messages
+          description: "Contract messaging"
+          operations:
+            - method: GET
+              name: list-messages
+              description: "List messages in a room"
+              call: "upwork-graphql.list-messages"
+              with:
+                room_id: "rest.room_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: send-message
+              description: "Send a message"
+              call: "upwork-graphql.send-message"
+              with:
+                room_id: "rest.room_id"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9080
+      namespace: upwork-talent-mcp
+      transport: http
+      description: "MCP server for AI-assisted talent acquisition and freelancer management on Upwork."
+      tools:
+        - name: search-jobs
+          description: "Search Upwork job postings by keywords, skills, and budget"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "upwork-graphql.search-jobs"
+          with:
+            q: "tools.q"
+            paging: "tools.paging"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-job
+          description: "Get detailed information for a specific Upwork job posting"
+          hints:
+            readOnly: true
+          call: "upwork-graphql.get-job"
+          with:
+            job_id: "tools.job_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: search-freelancers
+          description: "Search for freelancers on Upwork by skills, rate, and availability"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "upwork-graphql.search-freelancers"
+          with:
+            q: "tools.q"
+            paging: "tools.paging"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-freelancer-profile
+          description: "Retrieve the full profile for a specific Upwork freelancer"
+          hints:
+            readOnly: true
+          call: "upwork-graphql.get-freelancer-profile"
+          with:
+            user_id: "tools.user_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-contracts
+          description: "List all Upwork contracts with optional status filtering"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "upwork-graphql.list-contracts"
+          with:
+            status: "tools.status"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-contract
+          description: "Get detailed information for a specific Upwork contract"
+          hints:
+            readOnly: true
+          call: "upwork-graphql.get-contract"
+          with:
+            contract_id: "tools.contract_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-messages
+          description: "List messages in a contract messaging room"
+          hints:
+            readOnly: true
+          call: "upwork-graphql.list-messages"
+          with:
+            room_id: "tools.room_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: send-message
+          description: "Send a message in a contract messaging room"
+          hints:
+            readOnly: false
+          call: "upwork-graphql.send-message"
+          with:
+            room_id: "tools.room_id"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: execute-graphql
+          description: "Execute a custom GraphQL query against the Upwork API"
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "upwork-graphql.execute-graphql"
+          with:
+            query: "tools.query"
+            variables: "tools.variables"
+          outputParameters:
+            - type: object
+              mapping: "$."

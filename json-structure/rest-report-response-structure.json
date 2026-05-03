@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/rest-report-response-structure.json",
+  "name": "ReportResponse",
+  "description": "A report response in Google Visualization data table format",
+  "type": "object",
+  "properties": {
+    "table": {
+      "type": "object",
+      "description": "Data table containing report results",
+      "properties": {
+        "cols": {
+          "type": "array",
+          "description": "Column definitions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "worked_on"
+              },
+              "label": {
+                "type": "string",
+                "example": "Worked On"
+              },
+              "type": {
+                "type": "string",
+                "example": "date"
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "description": "Data rows",
+          "items": {
+            "type": "object",
+            "properties": {
+              "c": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "v": {
+                      "description": "Cell value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

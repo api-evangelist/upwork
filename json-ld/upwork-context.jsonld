@@ -1,0 +1,290 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "upwork": "https://developers.upwork.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Budget": "upwork:Budget",
+    "Client": "upwork:Client",
+    "Contract": "upwork:Contract",
+    "ContractListResponse": "upwork:ContractListResponse",
+    "Engagement": "upwork:Engagement",
+    "EngagementListResponse": "upwork:EngagementListResponse",
+    "FreelancerProfile": "upwork:FreelancerProfile",
+    "FreelancerSearchResponse": "upwork:FreelancerSearchResponse",
+    "GraphQLError": "upwork:GraphQLError",
+    "GraphQLRequest": "upwork:GraphQLRequest",
+    "GraphQLResponse": "upwork:GraphQLResponse",
+    "Job": "upwork:Job",
+    "JobSearchResponse": "upwork:JobSearchResponse",
+    "Message": "upwork:Message",
+    "MessageCreate": "upwork:MessageCreate",
+    "MessageListResponse": "upwork:MessageListResponse",
+    "OAuthToken": "upwork:OAuthToken",
+    "Paging": "upwork:Paging",
+    "ReportResponse": "upwork:ReportResponse",
+    "Skill": "upwork:Skill",
+    "Team": "upwork:Team",
+    "TeamListResponse": "upwork:TeamListResponse",
+    "accessToken": {
+      "@id": "upwork:access_token",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "upwork:amount",
+      "@type": "xsd:decimal"
+    },
+    "authorId": {
+      "@id": "upwork:authorId",
+      "@type": "xsd:string"
+    },
+    "authorName": {
+      "@id": "upwork:authorName",
+      "@type": "xsd:string"
+    },
+    "availability": {
+      "@id": "upwork:availability",
+      "@type": "xsd:string"
+    },
+    "budget": {
+      "@id": "upwork:budget",
+      "@type": "xsd:string"
+    },
+    "c": {
+      "@id": "upwork:c",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "client": {
+      "@id": "upwork:client",
+      "@type": "xsd:string"
+    },
+    "clientId": {
+      "@id": "upwork:clientId",
+      "@type": "xsd:string"
+    },
+    "cols": {
+      "@id": "upwork:cols",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "column": {
+      "@id": "upwork:column",
+      "@type": "xsd:integer"
+    },
+    "companyId": {
+      "@id": "upwork:company_id",
+      "@type": "xsd:string"
+    },
+    "contracts": {
+      "@id": "upwork:contracts",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "count": {
+      "@id": "upwork:count",
+      "@type": "xsd:integer"
+    },
+    "country": {
+      "@id": "upwork:country",
+      "@type": "xsd:string"
+    },
+    "createdDateTime": {
+      "@id": "upwork:createdDateTime",
+      "@type": "xsd:dateTime"
+    },
+    "currency": {
+      "@id": "upwork:currency",
+      "@type": "xsd:string"
+    },
+    "data": {
+      "@id": "upwork:data",
+      "@type": "xsd:string"
+    },
+    "description": "schema:description",
+    "duration": {
+      "@id": "upwork:duration",
+      "@type": "xsd:string"
+    },
+    "endedTime": {
+      "@id": "upwork:endedTime",
+      "@type": "xsd:dateTime"
+    },
+    "engagements": {
+      "@id": "upwork:engagements",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "errors": {
+      "@id": "upwork:errors",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "experienceLevel": {
+      "@id": "upwork:experienceLevel",
+      "@type": "xsd:string"
+    },
+    "expiresIn": {
+      "@id": "upwork:expires_in",
+      "@type": "xsd:integer"
+    },
+    "freelancerId": {
+      "@id": "upwork:freelancerId",
+      "@type": "xsd:string"
+    },
+    "freelancerName": {
+      "@id": "upwork:freelancerName",
+      "@type": "xsd:string"
+    },
+    "id": {
+      "@id": "upwork:id",
+      "@type": "xsd:string"
+    },
+    "jobTitle": {
+      "@id": "upwork:job_title",
+      "@type": "xsd:string"
+    },
+    "jobType": {
+      "@id": "upwork:jobType",
+      "@type": "xsd:string"
+    },
+    "jobs": {
+      "@id": "upwork:jobs",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "jobsCompleted": {
+      "@id": "upwork:jobsCompleted",
+      "@type": "xsd:integer"
+    },
+    "label": {
+      "@id": "upwork:label",
+      "@type": "xsd:string"
+    },
+    "line": {
+      "@id": "upwork:line",
+      "@type": "xsd:integer"
+    },
+    "locations": {
+      "@id": "upwork:locations",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "upwork:message",
+      "@type": "xsd:string"
+    },
+    "messages": {
+      "@id": "upwork:messages",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "offset": {
+      "@id": "upwork:offset",
+      "@type": "xsd:integer"
+    },
+    "operationName": {
+      "@id": "upwork:operationName",
+      "@type": "xsd:string"
+    },
+    "paging": {
+      "@id": "upwork:paging",
+      "@type": "xsd:string"
+    },
+    "path": {
+      "@id": "upwork:path",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "providerId": {
+      "@id": "upwork:provider_id",
+      "@type": "xsd:string"
+    },
+    "providers": {
+      "@id": "upwork:providers",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "query": {
+      "@id": "upwork:query",
+      "@type": "xsd:string"
+    },
+    "rate": {
+      "@id": "upwork:rate",
+      "@type": "xsd:decimal"
+    },
+    "rating": {
+      "@id": "upwork:rating",
+      "@type": "xsd:decimal"
+    },
+    "refreshToken": {
+      "@id": "upwork:refresh_token",
+      "@type": "xsd:string"
+    },
+    "roomId": {
+      "@id": "upwork:roomId",
+      "@type": "xsd:string"
+    },
+    "rows": {
+      "@id": "upwork:rows",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "skills": {
+      "@id": "upwork:skills",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "startedTime": {
+      "@id": "upwork:startedTime",
+      "@type": "xsd:dateTime"
+    },
+    "status": {
+      "@id": "upwork:status",
+      "@type": "xsd:string"
+    },
+    "table": {
+      "@id": "upwork:table",
+      "@type": "xsd:string"
+    },
+    "teams": {
+      "@id": "upwork:teams",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "text": {
+      "@id": "upwork:text",
+      "@type": "xsd:string"
+    },
+    "title": {
+      "@id": "upwork:title",
+      "@type": "xsd:string"
+    },
+    "tokenType": {
+      "@id": "upwork:token_type",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "upwork:total",
+      "@type": "xsd:integer"
+    },
+    "totalSpent": {
+      "@id": "upwork:totalSpent",
+      "@type": "xsd:decimal"
+    },
+    "type": {
+      "@id": "upwork:type",
+      "@type": "xsd:string"
+    },
+    "uid": {
+      "@id": "upwork:uid",
+      "@type": "xsd:string"
+    },
+    "variables": {
+      "@id": "upwork:variables",
+      "@type": "xsd:string"
+    }
+  }
+}

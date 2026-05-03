@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-contract-list-response-structure.json",
+  "name": "ContractListResponse",
+  "description": "Paginated list of contracts",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "int32",
+      "description": "Total number of contracts",
+      "example": 25
+    },
+    "contracts": {
+      "type": "array",
+      "description": "List of contracts",
+      "items": {
+        "$ref": "#/components/schemas/Contract"
+      }
+    }
+  }
+}

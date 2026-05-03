@@ -1,0 +1,12 @@
+{
+  "id": "~abc123def456",
+  "status": "active",
+  "jobTitle": "Python Developer for Data Pipeline",
+  "freelancerId": "example-string",
+  "freelancerName": "Python Developer for Data Pipeline",
+  "clientId": "example-string",
+  "rate": 75.0,
+  "currency": "USD",
+  "startedTime": "2025-03-15T14:30:00Z",
+  "endedTime": "2025-03-15T14:30:00Z"
+}

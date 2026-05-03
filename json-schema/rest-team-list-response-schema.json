@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/rest-team-list-response-schema.json",
+  "title": "TeamListResponse",
+  "description": "List of teams",
+  "type": "object",
+  "properties": {
+    "teams": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Team"
+      }
+    }
+  }
+}

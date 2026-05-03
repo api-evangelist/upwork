@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-contract-schema.json",
+  "title": "Contract",
+  "description": "A freelance contract between a client and freelancer on Upwork",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the contract",
+      "example": "contract-abc123"
+    },
+    "status": {
+      "type": "string",
+      "description": "Current status of the contract",
+      "enum": [
+        "active",
+        "paused",
+        "closed"
+      ],
+      "example": "active"
+    },
+    "jobTitle": {
+      "type": "string",
+      "description": "Title of the job associated with this contract",
+      "example": "Python Developer for Data Pipeline"
+    },
+    "freelancerId": {
+      "type": "string",
+      "description": "ID of the freelancer on the contract",
+      "example": "~abc123"
+    },
+    "freelancerName": {
+      "type": "string",
+      "description": "Name of the freelancer",
+      "example": "Jane Smith"
+    },
+    "clientId": {
+      "type": "string",
+      "description": "ID of the client",
+      "example": "~def456"
+    },
+    "rate": {
+      "type": "number",
+      "description": "Hourly or fixed rate for the contract",
+      "example": 75.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency for the contract rate",
+      "example": "USD"
+    },
+    "startedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the contract started",
+      "example": "2025-01-15T10:00:00Z"
+    },
+    "endedTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the contract ended (if closed)",
+      "example": "2025-03-15T10:00:00Z"
+    }
+  }
+}

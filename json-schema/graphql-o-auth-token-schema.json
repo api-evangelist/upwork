@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-o-auth-token-schema.json",
+  "title": "OAuthToken",
+  "description": "OAuth2 access token response",
+  "type": "object",
+  "properties": {
+    "access_token": {
+      "type": "string",
+      "description": "The access token for API requests",
+      "example": "eyJhbGciOiJSUzI1NiJ9.example.token"
+    },
+    "token_type": {
+      "type": "string",
+      "description": "Token type (always bearer)",
+      "example": "bearer"
+    },
+    "refresh_token": {
+      "type": "string",
+      "description": "Token for obtaining new access tokens",
+      "example": "refresh-token-xyz789"
+    },
+    "expires_in": {
+      "type": "integer",
+      "description": "Token lifetime in seconds",
+      "example": 86400
+    }
+  }
+}

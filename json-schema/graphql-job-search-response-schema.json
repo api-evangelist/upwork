@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-job-search-response-schema.json",
+  "title": "JobSearchResponse",
+  "description": "Paginated job search results",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of matching jobs",
+      "example": 1250
+    },
+    "paging": {
+      "$ref": "#/components/schemas/Paging"
+    },
+    "jobs": {
+      "type": "array",
+      "description": "List of job postings",
+      "items": {
+        "$ref": "#/components/schemas/Job"
+      }
+    }
+  }
+}

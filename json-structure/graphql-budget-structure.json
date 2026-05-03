@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-budget-structure.json",
+  "name": "Budget",
+  "description": "Budget for a job posting",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "type": "double",
+      "description": "Budget amount",
+      "example": 5000.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Budget currency",
+      "example": "USD"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-graph-ql-response-schema.json",
+  "title": "GraphQLResponse",
+  "description": "A GraphQL response containing data or errors",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "description": "The response data for the operation",
+      "additionalProperties": true
+    },
+    "errors": {
+      "type": "array",
+      "description": "List of GraphQL errors if the operation failed",
+      "items": {
+        "$ref": "#/components/schemas/GraphQLError"
+      }
+    }
+  }
+}

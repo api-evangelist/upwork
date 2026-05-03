@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/rest-team-structure.json",
+  "name": "Team",
+  "description": "An Upwork team within an organization",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "team-abc123"
+    },
+    "name": {
+      "type": "string",
+      "example": "Engineering Team"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive"
+      ],
+      "example": "active"
+    },
+    "company_id": {
+      "type": "string",
+      "example": "company-abc123"
+    }
+  }
+}

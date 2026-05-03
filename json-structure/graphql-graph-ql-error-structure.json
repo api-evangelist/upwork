@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-graph-ql-error-structure.json",
+  "name": "GraphQLError",
+  "description": "A GraphQL error",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "description": "Human-readable error message",
+      "example": "Unauthorized access"
+    },
+    "locations": {
+      "type": "array",
+      "description": "Source locations of the error",
+      "items": {
+        "type": "object",
+        "properties": {
+          "line": {
+            "type": "int32",
+            "example": 2
+          },
+          "column": {
+            "type": "int32",
+            "example": 5
+          }
+        }
+      }
+    },
+    "path": {
+      "type": "array",
+      "description": "Path to the field that caused the error",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

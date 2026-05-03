@@ -1,0 +1,195 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "Upwork"
+  description: "Unified taxonomy for the Upwork freelancing platform API, mapping operational resources, actions, and parameters to talent acquisition workflows."
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - namespace: upwork-graphql
+      version: "1.0.0"
+      baseUrl: https://api.upwork.com/graphql
+      status: active
+      description: "GraphQL API for marketplace data"
+    - namespace: upwork-rest
+      version: "3.0"
+      baseUrl: https://www.upwork.com/api
+      status: active
+      description: "Legacy REST API for reports and organizations"
+
+  resources:
+    - name: jobs
+      api: upwork-graphql
+      description: "Job postings on the Upwork marketplace"
+      actions: [search, get]
+    - name: contracts
+      api: upwork-graphql
+      description: "Freelance contracts between clients and freelancers"
+      actions: [list, get]
+    - name: profiles
+      api: upwork-graphql
+      description: "Freelancer public profiles"
+      actions: [search, get]
+    - name: messages
+      api: upwork-graphql
+      description: "Contract messaging rooms and messages"
+      actions: [list, send]
+    - name: reports
+      api: upwork-rest
+      description: "Financial and engagement reports"
+      actions: [get]
+    - name: teams
+      api: upwork-rest
+      description: "Organization teams"
+      actions: [list]
+    - name: engagements
+      api: upwork-rest
+      description: "Engagement (contract) records"
+      actions: [list]
+
+  actions:
+    - name: search
+      httpMethod: GET
+      pattern: read
+      description: "Search for resources with criteria"
+    - name: list
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a collection of resources"
+    - name: get
+      httpMethod: GET
+      pattern: read
+      description: "Retrieve a single resource"
+    - name: send
+      httpMethod: POST
+      pattern: write
+      description: "Send a message"
+
+  schemas:
+    core:
+      - name: Job
+        description: "A job posting on the Upwork marketplace"
+        keyProperties: [id, title, status, budget, jobType, experienceLevel]
+      - name: Contract
+        description: "A freelance contract"
+        keyProperties: [id, status, jobTitle, freelancerId, rate, currency]
+      - name: FreelancerProfile
+        description: "A freelancer's public profile"
+        keyProperties: [id, name, title, rate, rating, jobsCompleted]
+      - name: Message
+        description: "A message in a contract room"
+        keyProperties: [id, text, createdDateTime, authorId]
+    supporting:
+      - name: Budget
+        description: "Job or contract budget"
+        keyProperties: [amount, currency]
+      - name: Skill
+        description: "A skill tag"
+        keyProperties: [name, uid]
+      - name: Paging
+        description: "Pagination metadata"
+        keyProperties: [offset, count, total]
+      - name: OAuthToken
+        description: "OAuth2 token response"
+        keyProperties: [access_token, token_type, expires_in, refresh_token]
+
+  authentication:
+    schemes:
+      - name: oauth2AuthCode
+        type: oauth2
+        flow: authorizationCode
+        authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+        tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+    scopes:
+      - name: jobs:read
+        description: "Read job postings"
+      - name: contracts:read
+        description: "Read contract data"
+      - name: messages:read
+        description: "Read messages"
+      - name: messages:write
+        description: "Send messages"
+      - name: profiles:read
+        description: "Read profiles"
+      - name: reports:read
+        description: "Read reports"
+
+capability:
+  workflows:
+    - name: talent-marketplace
+      file: capabilities/talent-marketplace.yaml
+      description: "Talent acquisition and freelancer management workflow"
+      apisCombined: [upwork-graphql]
+      toolCount: 9
+      personas: [Hiring Manager, Agency Manager, Developer]
+      domains: [Talent Acquisition, Contract Management, Messaging]
+
+  personas:
+    - id: hiring-manager
+      name: Hiring Manager
+      description: "Business professional finding and hiring freelancers"
+      workflows: [talent-marketplace]
+    - id: agency-manager
+      name: Agency Manager
+      description: "Manager overseeing multiple freelancer contracts"
+      workflows: [talent-marketplace]
+    - id: developer
+      name: Developer
+      description: "Developer integrating Upwork data into custom applications"
+      workflows: [talent-marketplace]
+
+  domains:
+    - name: Talent Acquisition
+      description: "Finding and evaluating freelancers and jobs"
+      resources: [jobs, profiles]
+    - name: Contract Management
+      description: "Managing active and completed contracts"
+      resources: [contracts, engagements]
+    - name: Messaging
+      description: "Contract communication"
+      resources: [messages]
+
+  namespaces:
+    consumed:
+      - name: upwork-graphql
+        baseUri: https://api.upwork.com/graphql
+        auth: oauth2
+    restExposed:
+      - name: upwork-talent-api
+        port: 8080
+        prefix: /v1
+    mcpExposed:
+      - name: upwork-talent-mcp
+        port: 9080
+        transport: http
+
+  binds:
+    - name: UPWORK_ACCESS_TOKEN
+      description: "OAuth2 Bearer access token"
+      usedBy: [talent-marketplace]
+    - name: UPWORK_CLIENT_ID
+      description: "OAuth2 client identifier"
+      usedBy: [talent-marketplace]
+    - name: UPWORK_CLIENT_SECRET
+      description: "OAuth2 client secret"
+      usedBy: [talent-marketplace]
+
+crossReference:
+  - resource: jobs
+    operations: [searchJobsREST, getJob, executeGraphQL]
+    workflows: [talent-marketplace]
+    personas: [hiring-manager, developer]
+  - resource: profiles
+    operations: [searchFreelancers, getFreelancerProfile]
+    workflows: [talent-marketplace]
+    personas: [hiring-manager, agency-manager]
+  - resource: contracts
+    operations: [listContracts, getContract]
+    workflows: [talent-marketplace]
+    personas: [hiring-manager, agency-manager]
+  - resource: messages
+    operations: [listMessages, sendMessage]
+    workflows: [talent-marketplace]
+    personas: [hiring-manager, agency-manager]

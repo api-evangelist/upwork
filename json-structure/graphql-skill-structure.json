@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-skill-structure.json",
+  "name": "Skill",
+  "description": "A skill associated with a job or profile",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Skill name",
+      "example": "Python"
+    },
+    "uid": {
+      "type": "string",
+      "description": "Unique identifier for the skill",
+      "example": "skill-123"
+    }
+  }
+}

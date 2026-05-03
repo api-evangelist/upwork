@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-paging-schema.json",
+  "title": "Paging",
+  "description": "Pagination information",
+  "type": "object",
+  "properties": {
+    "offset": {
+      "type": "integer",
+      "description": "Current offset",
+      "example": 0
+    },
+    "count": {
+      "type": "integer",
+      "description": "Number of items returned",
+      "example": 10
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of items available",
+      "example": 1250
+    }
+  }
+}

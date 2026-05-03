@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/graphql-client-structure.json",
+  "name": "Client",
+  "description": "A client on the Upwork platform",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the client",
+      "example": "~def456"
+    },
+    "country": {
+      "type": "string",
+      "description": "Client country code",
+      "example": "US"
+    },
+    "totalSpent": {
+      "type": "double",
+      "description": "Total amount spent on Upwork",
+      "example": 50000.0
+    },
+    "rating": {
+      "type": "double",
+      "description": "Client rating",
+      "example": 4.8
+    }
+  }
+}

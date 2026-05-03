@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/rest-engagement-list-response-schema.json",
+  "title": "EngagementListResponse",
+  "description": "List of engagements",
+  "type": "object",
+  "properties": {
+    "engagements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Engagement"
+      }
+    }
+  }
+}

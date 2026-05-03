@@ -1,0 +1,18 @@
+{
+  "table": {
+    "cols": [
+      {
+        "id": "~abc123def456",
+        "label": "example-string",
+        "type": "hourly"
+      }
+    ],
+    "rows": [
+      {
+        "c": [
+          "example"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-freelancer-search-response-schema.json",
+  "title": "FreelancerSearchResponse",
+  "description": "Paginated freelancer search results",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of matching freelancers",
+      "example": 350
+    },
+    "providers": {
+      "type": "array",
+      "description": "List of freelancer profiles",
+      "items": {
+        "$ref": "#/components/schemas/FreelancerProfile"
+      }
+    }
+  }
+}

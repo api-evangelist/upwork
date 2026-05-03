@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/rest-engagement-structure.json",
+  "name": "Engagement",
+  "description": "An engagement (contract) on Upwork",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "example": "engagement-abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "closed"
+      ],
+      "example": "active"
+    },
+    "job_title": {
+      "type": "string",
+      "example": "Python Developer"
+    },
+    "provider_id": {
+      "type": "string",
+      "example": "~abc123"
+    },
+    "rate": {
+      "type": "double",
+      "example": 75.0
+    }
+  }
+}

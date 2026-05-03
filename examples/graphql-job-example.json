@@ -1,0 +1,15 @@
+{
+  "id": "~abc123def456",
+  "title": "Python Developer for Data Pipeline",
+  "description": "Sample text",
+  "status": "open",
+  "budget": "example-string",
+  "skills": [
+    "Python"
+  ],
+  "createdDateTime": "2025-03-15T14:30:00Z",
+  "client": "example-string",
+  "jobType": "hourly",
+  "duration": "example-string",
+  "experienceLevel": "entry"
+}

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-freelancer-profile-schema.json",
+  "title": "FreelancerProfile",
+  "description": "A freelancer profile on Upwork",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the freelancer",
+      "example": "~abc123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Full name of the freelancer",
+      "example": "Jane Smith"
+    },
+    "title": {
+      "type": "string",
+      "description": "Professional title or headline",
+      "example": "Senior Python Developer"
+    },
+    "description": {
+      "type": "string",
+      "description": "Profile overview/bio",
+      "example": "Experienced Python developer with 8 years..."
+    },
+    "rate": {
+      "type": "number",
+      "description": "Hourly rate",
+      "example": 75.0
+    },
+    "currency": {
+      "type": "string",
+      "description": "Rate currency",
+      "example": "USD"
+    },
+    "rating": {
+      "type": "number",
+      "description": "Average client rating (0-5)",
+      "example": 4.95
+    },
+    "jobsCompleted": {
+      "type": "integer",
+      "description": "Total number of completed jobs",
+      "example": 48
+    },
+    "skills": {
+      "type": "array",
+      "description": "Skills listed on the profile",
+      "items": {
+        "type": "string"
+      },
+      "example": [
+        "Python",
+        "Machine Learning",
+        "Data Science"
+      ]
+    },
+    "country": {
+      "type": "string",
+      "description": "Country of the freelancer",
+      "example": "US"
+    },
+    "availability": {
+      "type": "string",
+      "description": "Current availability status",
+      "enum": [
+        "full-time",
+        "part-time",
+        "not-available"
+      ],
+      "example": "full-time"
+    }
+  }
+}

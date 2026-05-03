@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-message-schema.json",
+  "title": "Message",
+  "description": "A message in a contract messaging room",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the message",
+      "example": "msg-abc123"
+    },
+    "text": {
+      "type": "string",
+      "description": "The message text content",
+      "example": "Hi, let's discuss the project requirements"
+    },
+    "createdDateTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the message was sent",
+      "example": "2025-03-15T14:30:00Z"
+    },
+    "authorId": {
+      "type": "string",
+      "description": "ID of the message author",
+      "example": "user-12345"
+    },
+    "authorName": {
+      "type": "string",
+      "description": "Name of the message author",
+      "example": "Jane Smith"
+    },
+    "roomId": {
+      "type": "string",
+      "description": "ID of the messaging room",
+      "example": "room-xyz789"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-structure/rest-engagement-list-response-structure.json",
+  "name": "EngagementListResponse",
+  "description": "List of engagements",
+  "type": "object",
+  "properties": {
+    "engagements": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Engagement"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/rest-report-response-schema.json",
+  "title": "ReportResponse",
+  "description": "A report response in Google Visualization data table format",
+  "type": "object",
+  "properties": {
+    "table": {
+      "type": "object",
+      "description": "Data table containing report results",
+      "properties": {
+        "cols": {
+          "type": "array",
+          "description": "Column definitions",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "example": "worked_on"
+              },
+              "label": {
+                "type": "string",
+                "example": "Worked On"
+              },
+              "type": {
+                "type": "string",
+                "example": "date"
+              }
+            }
+          }
+        },
+        "rows": {
+          "type": "array",
+          "description": "Data rows",
+          "items": {
+            "type": "object",
+            "properties": {
+              "c": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "v": {
+                      "description": "Cell value"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

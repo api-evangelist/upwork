@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/json-schema/graphql-contract-list-response-schema.json",
+  "title": "ContractListResponse",
+  "description": "Paginated list of contracts",
+  "type": "object",
+  "properties": {
+    "total": {
+      "type": "integer",
+      "description": "Total number of contracts",
+      "example": 25
+    },
+    "contracts": {
+      "type": "array",
+      "description": "List of contracts",
+      "items": {
+        "$ref": "#/components/schemas/Contract"
+      }
+    }
+  }
+}
