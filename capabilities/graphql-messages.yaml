@@ -1,0 +1,170 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upwork GraphQL API — Messages
+  description: 'Upwork GraphQL API — Messages. 3 operations. Lead operation: Upwork List Messages. Self-contained Naftiko
+    capability covering one Upwork business surface.'
+  tags:
+  - Upwork
+  - Messages
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPWORK_API_KEY: UPWORK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graphql-messages
+    baseUri: https://api.upwork.com
+    description: Upwork GraphQL API — Messages business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-messages-v3-rooms-room_id-messages
+      path: /api/v3/messages/v3/rooms/{room_id}/messages
+      operations:
+      - name: listmessages
+        method: GET
+        description: Upwork List Messages
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: room_id
+          in: path
+          type: string
+          description: The unique identifier of the messaging room
+          required: true
+        - name: paging
+          in: query
+          type: string
+          description: Pagination parameters
+      - name: sendmessage
+        method: POST
+        description: Upwork Send Message
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: room_id
+          in: path
+          type: string
+          description: The unique identifier of the messaging room
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: executegraphql
+        method: POST
+        description: Upwork Execute GraphQL Query or Mutation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPWORK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graphql-messages-rest
+    port: 8080
+    description: REST adapter for Upwork GraphQL API — Messages. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v3/messages/v3/rooms/{room-id}/messages
+      name: api-v3-messages-v3-rooms-room-id-messages
+      description: REST surface for api-v3-messages-v3-rooms-room_id-messages.
+      operations:
+      - method: GET
+        name: listmessages
+        description: Upwork List Messages
+        call: graphql-messages.listmessages
+        with:
+          room_id: rest.room_id
+          paging: rest.paging
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: sendmessage
+        description: Upwork Send Message
+        call: graphql-messages.sendmessage
+        with:
+          room_id: rest.room_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/graphql
+      name: graphql
+      description: REST surface for graphql.
+      operations:
+      - method: POST
+        name: executegraphql
+        description: Upwork Execute GraphQL Query or Mutation
+        call: graphql-messages.executegraphql
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graphql-messages-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upwork GraphQL API — Messages. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: upwork-list-messages
+      description: Upwork List Messages
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-messages.listmessages
+      with:
+        room_id: tools.room_id
+        paging: tools.paging
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-send-message
+      description: Upwork Send Message
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: graphql-messages.sendmessage
+      with:
+        room_id: tools.room_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-execute-graphql-query-mutation
+      description: Upwork Execute GraphQL Query or Mutation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: graphql-messages.executegraphql
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

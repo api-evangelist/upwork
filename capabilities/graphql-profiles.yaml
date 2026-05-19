@@ -1,0 +1,169 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upwork GraphQL API — Profiles
+  description: 'Upwork GraphQL API — Profiles. 3 operations. Lead operation: Upwork Search Freelancers. Self-contained Naftiko
+    capability covering one Upwork business surface.'
+  tags:
+  - Upwork
+  - Profiles
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPWORK_API_KEY: UPWORK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graphql-profiles
+    baseUri: https://api.upwork.com
+    description: Upwork GraphQL API — Profiles business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-profiles-v2-search-providers
+      path: /api/v3/profiles/v2/search/providers
+      operations:
+      - name: searchfreelancers
+        method: GET
+        description: Upwork Search Freelancers
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Search query string
+        - name: paging
+          in: query
+          type: string
+          description: Pagination as offset;count
+    - name: api-v3-profiles-v2-users-user_id
+      path: /api/v3/profiles/v2/users/{user_id}
+      operations:
+      - name: getfreelancerprofile
+        method: GET
+        description: Upwork Get Freelancer Profile
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: user_id
+          in: path
+          type: string
+          description: The unique identifier or username of the user
+          required: true
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: executegraphql
+        method: POST
+        description: Upwork Execute GraphQL Query or Mutation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPWORK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graphql-profiles-rest
+    port: 8080
+    description: REST adapter for Upwork GraphQL API — Profiles. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v3/profiles/v2/search/providers
+      name: api-v3-profiles-v2-search-providers
+      description: REST surface for api-v3-profiles-v2-search-providers.
+      operations:
+      - method: GET
+        name: searchfreelancers
+        description: Upwork Search Freelancers
+        call: graphql-profiles.searchfreelancers
+        with:
+          q: rest.q
+          paging: rest.paging
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/profiles/v2/users/{user-id}
+      name: api-v3-profiles-v2-users-user-id
+      description: REST surface for api-v3-profiles-v2-users-user_id.
+      operations:
+      - method: GET
+        name: getfreelancerprofile
+        description: Upwork Get Freelancer Profile
+        call: graphql-profiles.getfreelancerprofile
+        with:
+          user_id: rest.user_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/graphql
+      name: graphql
+      description: REST surface for graphql.
+      operations:
+      - method: POST
+        name: executegraphql
+        description: Upwork Execute GraphQL Query or Mutation
+        call: graphql-profiles.executegraphql
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graphql-profiles-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upwork GraphQL API — Profiles. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: upwork-search-freelancers
+      description: Upwork Search Freelancers
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-profiles.searchfreelancers
+      with:
+        q: tools.q
+        paging: tools.paging
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-get-freelancer-profile
+      description: Upwork Get Freelancer Profile
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-profiles.getfreelancerprofile
+      with:
+        user_id: tools.user_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-execute-graphql-query-mutation
+      description: Upwork Execute GraphQL Query or Mutation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: graphql-profiles.executegraphql
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,111 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upwork REST API — Organizations
+  description: 'Upwork REST API — Organizations. 2 operations. Lead operation: Upwork List Engagements. Self-contained Naftiko
+    capability covering one Upwork business surface.'
+  tags:
+  - Upwork
+  - Organizations
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPWORK_API_KEY: UPWORK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: rest-organizations
+    baseUri: https://www.upwork.com/api
+    description: Upwork REST API — Organizations business capability. Self-contained, no shared references.
+    resources:
+    - name: v3-hr-v2-engagements
+      path: /v3/hr/v2/engagements
+      operations:
+      - name: listengagements
+        method: GET
+        description: Upwork List Engagements
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: status
+          in: query
+          type: string
+          description: Filter by engagement status
+    - name: v3-hr-v2-teams
+      path: /v3/hr/v2/teams
+      operations:
+      - name: listteams
+        method: GET
+        description: Upwork List Teams
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.UPWORK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: rest-organizations-rest
+    port: 8080
+    description: REST adapter for Upwork REST API — Organizations. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v3/hr/v2/engagements
+      name: v3-hr-v2-engagements
+      description: REST surface for v3-hr-v2-engagements.
+      operations:
+      - method: GET
+        name: listengagements
+        description: Upwork List Engagements
+        call: rest-organizations.listengagements
+        with:
+          status: rest.status
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v3/hr/v2/teams
+      name: v3-hr-v2-teams
+      description: REST surface for v3-hr-v2-teams.
+      operations:
+      - method: GET
+        name: listteams
+        description: Upwork List Teams
+        call: rest-organizations.listteams
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: rest-organizations-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upwork REST API — Organizations. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: upwork-list-engagements
+      description: Upwork List Engagements
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-organizations.listengagements
+      with:
+        status: tools.status
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-list-teams
+      description: Upwork List Teams
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: rest-organizations.listteams
+      outputParameters:
+      - type: object
+        mapping: $.

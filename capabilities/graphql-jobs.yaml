@@ -1,0 +1,187 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Upwork GraphQL API — Jobs
+  description: 'Upwork GraphQL API — Jobs. 3 operations. Lead operation: Upwork Search Jobs. Self-contained Naftiko capability
+    covering one Upwork business surface.'
+  tags:
+  - Upwork
+  - Jobs
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    UPWORK_API_KEY: UPWORK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: graphql-jobs
+    baseUri: https://api.upwork.com
+    description: Upwork GraphQL API — Jobs business capability. Self-contained, no shared references.
+    resources:
+    - name: api-v3-jobs-search
+      path: /api/v3/jobs/search
+      operations:
+      - name: searchjobsrest
+        method: GET
+        description: Upwork Search Jobs
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: q
+          in: query
+          type: string
+          description: Search query string
+        - name: skills
+          in: query
+          type: string
+          description: Comma-separated list of required skills
+        - name: budget
+          in: query
+          type: string
+          description: Budget range as min-max
+        - name: paging
+          in: query
+          type: string
+          description: Pagination as offset;count
+        - name: sort
+          in: query
+          type: string
+          description: Sort order for results
+    - name: api-v3-jobs-job_id
+      path: /api/v3/jobs/{job_id}
+      operations:
+      - name: getjob
+        method: GET
+        description: Upwork Get Job Details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: job_id
+          in: path
+          type: string
+          description: The unique identifier of the job posting
+          required: true
+    - name: graphql
+      path: /graphql
+      operations:
+      - name: executegraphql
+        method: POST
+        description: Upwork Execute GraphQL Query or Mutation
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.UPWORK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: graphql-jobs-rest
+    port: 8080
+    description: REST adapter for Upwork GraphQL API — Jobs. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/api/v3/jobs/search
+      name: api-v3-jobs-search
+      description: REST surface for api-v3-jobs-search.
+      operations:
+      - method: GET
+        name: searchjobsrest
+        description: Upwork Search Jobs
+        call: graphql-jobs.searchjobsrest
+        with:
+          q: rest.q
+          skills: rest.skills
+          budget: rest.budget
+          paging: rest.paging
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/api/v3/jobs/{job-id}
+      name: api-v3-jobs-job-id
+      description: REST surface for api-v3-jobs-job_id.
+      operations:
+      - method: GET
+        name: getjob
+        description: Upwork Get Job Details
+        call: graphql-jobs.getjob
+        with:
+          job_id: rest.job_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/graphql
+      name: graphql
+      description: REST surface for graphql.
+      operations:
+      - method: POST
+        name: executegraphql
+        description: Upwork Execute GraphQL Query or Mutation
+        call: graphql-jobs.executegraphql
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: graphql-jobs-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Upwork GraphQL API — Jobs. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: upwork-search-jobs
+      description: Upwork Search Jobs
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-jobs.searchjobsrest
+      with:
+        q: tools.q
+        skills: tools.skills
+        budget: tools.budget
+        paging: tools.paging
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-get-job-details
+      description: Upwork Get Job Details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: graphql-jobs.getjob
+      with:
+        job_id: tools.job_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upwork-execute-graphql-query-mutation
+      description: Upwork Execute GraphQL Query or Mutation
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: graphql-jobs.executegraphql
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
