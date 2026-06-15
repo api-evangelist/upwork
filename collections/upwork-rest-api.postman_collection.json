@@ -1,0 +1,528 @@
+{
+  "item": [
+    {
+      "id": "71f4f1cf-10b6-4396-a016-3e17255de109",
+      "name": "Reports",
+      "description": {
+        "content": "Financial and engagement reports for teams and organizations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "179813b4-a0e7-45c5-9895-65f13fd04000",
+          "name": "Upwork Get Company Hours Worked Report",
+          "request": {
+            "name": "Upwork Get Company Hours Worked Report",
+            "description": {
+              "content": "Retrieve hours worked report for a company within a date range.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "reports",
+                "companies",
+                ":company_id",
+                "hours",
+                "hours_worked"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "tq",
+                  "value": "<string>",
+                  "description": "Table query for filtering (Upwork Query Language)"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "company_id",
+                  "description": "(Required) The company identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5284fdf7-7f93-405f-8e40-04491943a418",
+              "name": "Hours worked report data",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reports",
+                    "companies",
+                    ":company_id",
+                    "hours",
+                    "hours_worked"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tq",
+                      "value": "SELECT worked_on, hours WHERE worked_on >= '2025-01-01'"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The company identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"table\": {\n    \"cols\": [\n      {\n        \"id\": \"worked_on\",\n        \"label\": \"Worked On\",\n        \"type\": \"date\"\n      },\n      {\n        \"id\": \"hours\",\n        \"label\": \"Hours\",\n        \"type\": \"number\"\n      }\n    ],\n    \"rows\": [\n      {\n        \"c\": [\n          {\n            \"v\": \"2025-01-15\"\n          },\n          {\n            \"v\": 8\n          }\n        ]\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "280fd7c4-96d5-459b-a6f7-a82196873f85",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "reports",
+                    "companies",
+                    ":company_id",
+                    "hours",
+                    "hours_worked"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "tq",
+                      "value": "SELECT worked_on, hours WHERE worked_on >= '2025-01-01'"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "company_id",
+                      "description": "(Required) The company identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "e53bd73c-7bf4-4dbf-8ba0-cce75b620a2e",
+      "name": "Organizations",
+      "description": {
+        "content": "Team and organization management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b8a4afce-438c-4276-91db-f718a2734144",
+          "name": "Upwork List Teams",
+          "request": {
+            "name": "Upwork List Teams",
+            "description": {
+              "content": "List all teams in the authenticated user's organization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hr",
+                "v2",
+                "teams"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19828201-491d-4c4c-b864-1216af090206",
+              "name": "List of teams",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hr",
+                    "v2",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"teams\": [\n    {\n      \"id\": \"team-abc123\",\n      \"name\": \"Engineering Team\",\n      \"status\": \"active\",\n      \"company_id\": \"company-abc123\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e6e765d2-485b-4eca-b7f1-7d4f6fc98e4a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hr",
+                    "v2",
+                    "teams"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95feefac-41d7-4cd7-a58e-7292cb33bed3",
+          "name": "Upwork List Engagements",
+          "request": {
+            "name": "Upwork List Engagements",
+            "description": {
+              "content": "List all engagements (contracts) for the authenticated user's account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v3",
+                "hr",
+                "v2",
+                "engagements"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Filter by engagement status"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8e08680b-021b-47a6-b9af-5907a5c48816",
+              "name": "List of engagements",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hr",
+                    "v2",
+                    "engagements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "active"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"engagements\": [\n    {\n      \"id\": \"engagement-abc123\",\n      \"status\": \"active\",\n      \"job_title\": \"Python Developer\",\n      \"provider_id\": \"~abc123\",\n      \"rate\": 75\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2f24b682-0e41-4b57-98e4-cbc310ab292b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v3",
+                    "hr",
+                    "v2",
+                    "engagements"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "active"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3959352c-6b2a-4f45-9ef0-fb3220e50f95",
+      "name": "Time Entries",
+      "description": {
+        "content": "Time tracking data for hourly contracts.",
+        "type": "text/plain"
+      },
+      "item": [],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://www.upwork.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "openid reports:read contracts:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.upwork.com/api/v3/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.upwork.com/ab/account-security/oauth2/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4b61ddb7-b0ff-4410-9b51-3988388f6e33",
+    "name": "Upwork REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The legacy Upwork REST API covering reports, financial data, organization management, and freelancer time entries. Authentication uses OAuth 2.0. Many resources have been migrated to the GraphQL API at api.upwork.com/graphql.\n\nContact Support:\n Name: Upwork Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

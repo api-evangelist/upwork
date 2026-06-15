@@ -1,0 +1,321 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork GraphQL API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Execute GraphQL Query or Mutation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields."
+        },
+        {
+          "info": {
+            "name": "Upwork Search Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/jobs/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "python developer",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "skills",
+                "value": "python,django",
+                "type": "query",
+                "description": "Comma-separated list of required skills"
+              },
+              {
+                "name": "budget",
+                "value": "1000-5000",
+                "type": "query",
+                "description": "Budget range as min-max"
+              },
+              {
+                "name": "paging",
+                "value": "0;10",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              },
+              {
+                "name": "sort",
+                "value": "recency",
+                "type": "query",
+                "description": "Sort order for results"
+              }
+            ]
+          },
+          "docs": "Search for job postings on the Upwork marketplace using REST API. Returns paginated list of job listings matching search criteria."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Job Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "~0123456789abcdef",
+                "type": "path",
+                "description": "The unique identifier of the job posting"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job posting by its ID."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/hr/v2/contracts",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter by contract status"
+              },
+              {
+                "name": "buyer_team__reference",
+                "value": "team-abc123",
+                "type": "query",
+                "description": "Filter by buyer team reference ID"
+              },
+              {
+                "name": "paging",
+                "value": "0;20",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of contracts for the authenticated user. Includes both active and completed contracts with status, terms, and financial data."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Contract Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/hr/v2/contracts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "contract-abc123",
+                "type": "path",
+                "description": "The unique identifier of the contract"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific contract including terms, milestones, time entries, and financial summary."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Messages",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork List Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/messages/v3/rooms/:room_id/messages",
+            "params": [
+              {
+                "name": "room_id",
+                "value": "room-xyz789",
+                "type": "path",
+                "description": "The unique identifier of the messaging room"
+              },
+              {
+                "name": "paging",
+                "value": "0;20",
+                "type": "query",
+                "description": "Pagination parameters"
+              }
+            ]
+          },
+          "docs": "Retrieve messages from a contract messaging room. Returns paginated message history ordered by time."
+        },
+        {
+          "info": {
+            "name": "Upwork Send Message",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/api/v3/messages/v3/rooms/:room_id/messages",
+            "params": [
+              {
+                "name": "room_id",
+                "value": "room-xyz789",
+                "type": "path",
+                "description": "The unique identifier of the messaging room"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Send a message to a contract messaging room."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Search Freelancers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/profiles/v2/search/providers",
+            "params": [
+              {
+                "name": "q",
+                "value": "python machine learning",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "paging",
+                "value": "0;10",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              }
+            ]
+          },
+          "docs": "Search for freelancers on the Upwork marketplace by skills, availability, rating, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Freelancer Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/profiles/v2/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "~abc123",
+                "type": "path",
+                "description": "The unique identifier or username of the user"
+              }
+            ]
+          },
+          "docs": "Retrieve the public profile for a specific freelancer or user."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Get OAuth2 Access Token",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/api/auth/v1/oauth/token",
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "client_id",
+                  "value": ""
+                },
+                {
+                  "name": "client_secret",
+                  "value": ""
+                },
+                {
+                  "name": "code",
+                  "value": ""
+                },
+                {
+                  "name": "refresh_token",
+                  "value": ""
+                },
+                {
+                  "name": "redirect_uri",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchange an authorization code for an OAuth2 access token and refresh token. Supports both authorization_code and refresh_token grant types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

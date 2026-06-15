@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork REST API",
+    "version": "3.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Get Company Hours Worked Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.upwork.com/api/v3/reports/companies/:company_id/hours/hours_worked",
+            "params": [
+              {
+                "name": "company_id",
+                "value": "company-abc123",
+                "type": "path",
+                "description": "The company identifier"
+              },
+              {
+                "name": "tq",
+                "value": "SELECT worked_on, hours WHERE worked_on >= '2025-01-01'",
+                "type": "query",
+                "description": "Table query for filtering (Upwork Query Language)"
+              }
+            ]
+          },
+          "docs": "Retrieve hours worked report for a company within a date range."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.upwork.com/api/v3/hr/v2/teams"
+          },
+          "docs": "List all teams in the authenticated user's organization."
+        },
+        {
+          "info": {
+            "name": "Upwork List Engagements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://www.upwork.com/api/v3/hr/v2/engagements",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter by engagement status"
+              }
+            ]
+          },
+          "docs": "List all engagements (contracts) for the authenticated user's account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
