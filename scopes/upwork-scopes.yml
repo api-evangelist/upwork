@@ -1,0 +1,78 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/upwork-graphql-api-openapi.yml, openapi/upwork-rest-api-openapi.yml
+schemes:
+- name: oauth2AuthCode
+  source: openapi/upwork-graphql-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+    tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+  description: OAuth 2.0 authorization code flow for Upwork API access. Obtain an authorization
+    code by redirecting users to the Upwork OAuth consent page, then exchange for access and
+    refresh tokens.
+- name: oauth2AuthCode
+  source: openapi/upwork-rest-api-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+    tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+  description: OAuth 2.0 authorization code flow
+scopes:
+- scope: contracts:read
+  description: Read contract data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+  - openapi/upwork-rest-api-openapi.yml
+- scope: email
+  description: Access to user email
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: jobs:read
+  description: Read job postings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: messages:read
+  description: Read messages
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: messages:write
+  description: Send messages
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: openid
+  description: Access to user identity information
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+  - openapi/upwork-rest-api-openapi.yml
+- scope: profile
+  description: Access to user profile data
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: profiles:read
+  description: Read freelancer profiles
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+- scope: reports:read
+  description: Read financial reports
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+  - openapi/upwork-rest-api-openapi.yml

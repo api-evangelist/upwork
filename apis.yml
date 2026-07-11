@@ -78,6 +78,10 @@ apis:
   - type: JSONSchema
     url: json-schema/rest-api-engagement-schema.json
 common:
+- type: Authentication
+  url: authentication/upwork-authentication.yml
+- type: OAuthScopes
+  url: scopes/upwork-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/upwork
 - type: Website
