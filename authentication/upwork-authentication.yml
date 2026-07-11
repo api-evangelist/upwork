@@ -1,0 +1,22 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/upwork-graphql-api-openapi.yml, openapi/upwork-rest-api-openapi.yml
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: oauth2AuthCode
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+    tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+    scopes: 9
+  description: OAuth 2.0 authorization code flow for Upwork API access. Obtain an authorization
+    code by redirecting users to the Upwork OAuth consent page, then exchange for access and
+    refresh tokens.
+  sources:
+  - openapi/upwork-graphql-api-openapi.yml
+  - openapi/upwork-rest-api-openapi.yml
