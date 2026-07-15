@@ -78,6 +78,8 @@ apis:
   - type: JSONSchema
     url: json-schema/rest-api-engagement-schema.json
 common:
+- type: AgenticAccess
+  url: agentic-access/upwork-agentic-access.yml
 - type: DomainSecurity
   url: security/upwork-domain-security.yml
 - type: Authentication
