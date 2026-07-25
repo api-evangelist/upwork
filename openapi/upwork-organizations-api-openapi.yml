@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Upwork GraphQL Authentication Organizations API
+  description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
+  version: 1.0.0
+  contact:
+    name: Upwork Developer Support
+    url: https://support.upwork.com/hc/en-us/sections/17976982721555-Upwork-API
+  termsOfService: https://www.upwork.com/legal
+  x-generated-from: documentation
+servers:
+- url: https://api.upwork.com
+  description: Upwork Production API
+security:
+- oauth2AuthCode: []
+tags:
+- name: Organizations
+  description: Team and organization management.
+paths:
+  /v3/hr/v2/teams:
+    get:
+      operationId: listTeams
+      summary: Upwork List Teams
+      description: List all teams in the authenticated user's organization.
+      tags:
+      - Organizations
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+              examples:
+                listTeams200Example:
+                  summary: Default listTeams 200 response
+                  x-microcks-default: true
+                  value:
+                    teams:
+                    - id: team-abc123
+                      name: Engineering Team
+                      status: active
+                      company_id: company-abc123
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v3/hr/v2/engagements:
+    get:
+      operationId: listEngagements
+      summary: Upwork List Engagements
+      description: List all engagements (contracts) for the authenticated user's account.
+      tags:
+      - Organizations
+      parameters:
+      - name: status
+        in: query
+        description: Filter by engagement status
+        schema:
+          type: string
+          enum:
+          - active
+          - closed
+        example: active
+      responses:
+        '200':
+          description: List of engagements
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EngagementListResponse'
+              examples:
+                listEngagements200Example:
+                  summary: Default listEngagements 200 response
+                  x-microcks-default: true
+                  value:
+                    engagements:
+                    - id: engagement-abc123
+                      status: active
+                      job_title: Python Developer
+                      provider_id: ~abc123
+                      rate: 75.0
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Engagement:
+      type: object
+      description: An engagement (contract) on Upwork
+      properties:
+        id:
+          type: string
+          example: engagement-abc123
+        status:
+          type: string
+          enum:
+          - active
+          - closed
+          example: active
+        job_title:
+          type: string
+          example: Python Developer
+        provider_id:
+          type: string
+          example: ~abc123
+        rate:
+          type: number
+          example: 75.0
+    Team:
+      type: object
+      description: An Upwork team within an organization
+      properties:
+        id:
+          type: string
+          example: team-abc123
+        name:
+          type: string
+          example: Engineering Team
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        company_id:
+          type: string
+          example: company-abc123
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          example: unauthorized
+        message:
+          type: string
+          example: Authentication failed.
+        code:
+          type: integer
+          example: 401
+    TeamListResponse:
+      type: object
+      description: List of teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    EngagementListResponse:
+      type: object
+      description: List of engagements
+      properties:
+        engagements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engagement'
+  securitySchemes:
+    oauth2AuthCode:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow for Upwork API access. Obtain an authorization code by redirecting users to the Upwork OAuth consent page, then exchange for access and refresh tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+          tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+          scopes:
+            openid: Access to user identity information
+            email: Access to user email
+            profile: Access to user profile data
+            jobs:read: Read job postings
+            contracts:read: Read contract data
+            messages:read: Read messages
+            messages:write: Send messages
+            profiles:read: Read freelancer profiles
+            reports:read: Read financial reports
+externalDocs:
+  description: Upwork GraphQL API Documentation
+  url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html

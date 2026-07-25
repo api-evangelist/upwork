@@ -1,0 +1,329 @@
+openapi: 3.0.3
+info:
+  title: Upwork GraphQL Authentication Messages API
+  description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
+  version: 1.0.0
+  contact:
+    name: Upwork Developer Support
+    url: https://support.upwork.com/hc/en-us/sections/17976982721555-Upwork-API
+  termsOfService: https://www.upwork.com/legal
+  x-generated-from: documentation
+servers:
+- url: https://api.upwork.com
+  description: Upwork Production API
+security:
+- oauth2AuthCode: []
+tags:
+- name: Messages
+  description: Read and send messages within active contracts.
+paths:
+  /graphql:
+    post:
+      operationId: executeGraphQL
+      summary: Upwork Execute GraphQL Query or Mutation
+      description: Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields.
+      tags:
+      - Messages
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+            examples:
+              searchJobs:
+                summary: Search for jobs using marketplaceJobPostingsSearch
+                value:
+                  query: "query SearchJobs($searchExpression: String, $paging: PagingInput) {\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\n    total\n    results {\n      id\n      title\n      description\n      skills { name }\n      budget { amount currency }\n      createdDateTime\n      client { id country }\n    }\n  }\n}\n"
+                  variables:
+                    searchExpression: python developer
+                    paging:
+                      offset: 0
+                      count: 10
+      responses:
+        '200':
+          description: GraphQL response with data or errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+              examples:
+                jobSearchResponse:
+                  summary: Job search results
+                  x-microcks-default: true
+                  value:
+                    data:
+                      marketplaceJobPostingsSearch:
+                        total: 1250
+                        results:
+                        - id: ~0123456789abcdef
+                          title: Python Developer for Data Pipeline
+                          description: Looking for an experienced Python developer...
+                          skills:
+                          - name: Python
+                          - name: Data Engineering
+                          budget:
+                            amount: 5000
+                            currency: USD
+                          createdDateTime: '2025-03-15T14:30:00Z'
+        '401':
+          description: Unauthorized - invalid or missing OAuth2 token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /api/v3/messages/v3/rooms/{room_id}/messages:
+    get:
+      operationId: listMessages
+      summary: Upwork List Messages
+      description: Retrieve messages from a contract messaging room. Returns paginated message history ordered by time.
+      tags:
+      - Messages
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        description: The unique identifier of the messaging room
+        schema:
+          type: string
+        example: room-xyz789
+      - name: paging
+        in: query
+        description: Pagination parameters
+        schema:
+          type: string
+        example: 0;20
+      responses:
+        '200':
+          description: List of messages
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MessageListResponse'
+              examples:
+                listMessages200Example:
+                  summary: Default listMessages 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 48
+                    messages:
+                    - id: msg-abc123
+                      text: Hi, let's discuss the project requirements
+                      createdDateTime: '2025-03-15T14:30:00Z'
+                      authorId: user-12345
+                      authorName: Jane Smith
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: sendMessage
+      summary: Upwork Send Message
+      description: Send a message to a contract messaging room.
+      tags:
+      - Messages
+      parameters:
+      - name: room_id
+        in: path
+        required: true
+        description: The unique identifier of the messaging room
+        schema:
+          type: string
+        example: room-xyz789
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageCreate'
+            examples:
+              sendMessageRequestExample:
+                summary: Default sendMessage request
+                x-microcks-default: true
+                value:
+                  message: Thank you for the update, I'll review the code shortly.
+      responses:
+        '200':
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Message'
+              examples:
+                sendMessage200Example:
+                  summary: Default sendMessage 200 response
+                  x-microcks-default: true
+                  value:
+                    id: msg-def456
+                    text: Thank you for the update, I'll review the code shortly.
+                    createdDateTime: '2025-03-15T15:00:00Z'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    Message:
+      type: object
+      description: A message in a contract messaging room
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the message
+          example: msg-abc123
+        text:
+          type: string
+          description: The message text content
+          example: Hi, let's discuss the project requirements
+        createdDateTime:
+          type: string
+          format: date-time
+          description: When the message was sent
+          example: '2025-03-15T14:30:00Z'
+        authorId:
+          type: string
+          description: ID of the message author
+          example: user-12345
+        authorName:
+          type: string
+          description: Name of the message author
+          example: Jane Smith
+        roomId:
+          type: string
+          description: ID of the messaging room
+          example: room-xyz789
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
+    GraphQLError:
+      type: object
+      description: A GraphQL error
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Unauthorized access
+        locations:
+          type: array
+          description: Source locations of the error
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+                example: 2
+              column:
+                type: integer
+                example: 5
+        path:
+          type: array
+          description: Path to the field that caused the error
+          items:
+            type: string
+    MessageListResponse:
+      type: object
+      description: Paginated list of messages
+      properties:
+        total:
+          type: integer
+          description: Total number of messages
+          example: 48
+        messages:
+          type: array
+          description: List of messages
+          items:
+            $ref: '#/components/schemas/Message'
+    MessageCreate:
+      type: object
+      description: Request body for sending a message
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: The message text to send
+          example: Thank you for the update, I'll review shortly.
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+  securitySchemes:
+    oauth2AuthCode:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow for Upwork API access. Obtain an authorization code by redirecting users to the Upwork OAuth consent page, then exchange for access and refresh tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+          tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+          scopes:
+            openid: Access to user identity information
+            email: Access to user email
+            profile: Access to user profile data
+            jobs:read: Read job postings
+            contracts:read: Read contract data
+            messages:read: Read messages
+            messages:write: Send messages
+            profiles:read: Read freelancer profiles
+            reports:read: Read financial reports
+externalDocs:
+  description: Upwork GraphQL API Documentation
+  url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html

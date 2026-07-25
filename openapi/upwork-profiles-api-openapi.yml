@@ -1,0 +1,343 @@
+openapi: 3.0.3
+info:
+  title: Upwork GraphQL Authentication Profiles API
+  description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
+  version: 1.0.0
+  contact:
+    name: Upwork Developer Support
+    url: https://support.upwork.com/hc/en-us/sections/17976982721555-Upwork-API
+  termsOfService: https://www.upwork.com/legal
+  x-generated-from: documentation
+servers:
+- url: https://api.upwork.com
+  description: Upwork Production API
+security:
+- oauth2AuthCode: []
+tags:
+- name: Profiles
+  description: Query freelancer and client user profiles, skills, and ratings.
+paths:
+  /graphql:
+    post:
+      operationId: executeGraphQL
+      summary: Upwork Execute GraphQL Query or Mutation
+      description: Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields.
+      tags:
+      - Profiles
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+            examples:
+              searchJobs:
+                summary: Search for jobs using marketplaceJobPostingsSearch
+                value:
+                  query: "query SearchJobs($searchExpression: String, $paging: PagingInput) {\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\n    total\n    results {\n      id\n      title\n      description\n      skills { name }\n      budget { amount currency }\n      createdDateTime\n      client { id country }\n    }\n  }\n}\n"
+                  variables:
+                    searchExpression: python developer
+                    paging:
+                      offset: 0
+                      count: 10
+      responses:
+        '200':
+          description: GraphQL response with data or errors
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+              examples:
+                jobSearchResponse:
+                  summary: Job search results
+                  x-microcks-default: true
+                  value:
+                    data:
+                      marketplaceJobPostingsSearch:
+                        total: 1250
+                        results:
+                        - id: ~0123456789abcdef
+                          title: Python Developer for Data Pipeline
+                          description: Looking for an experienced Python developer...
+                          skills:
+                          - name: Python
+                          - name: Data Engineering
+                          budget:
+                            amount: 5000
+                            currency: USD
+                          createdDateTime: '2025-03-15T14:30:00Z'
+        '401':
+          description: Unauthorized - invalid or missing OAuth2 token
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+        '429':
+          description: Rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /api/v3/profiles/v2/search/providers:
+    get:
+      operationId: searchFreelancers
+      summary: Upwork Search Freelancers
+      description: Search for freelancers on the Upwork marketplace by skills, availability, rating, and other criteria.
+      tags:
+      - Profiles
+      parameters:
+      - name: q
+        in: query
+        description: Search query string
+        schema:
+          type: string
+        example: python machine learning
+      - name: paging
+        in: query
+        description: Pagination as offset;count
+        schema:
+          type: string
+        example: 0;10
+      responses:
+        '200':
+          description: List of freelancer profiles
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FreelancerSearchResponse'
+              examples:
+                searchFreelancers200Example:
+                  summary: Default searchFreelancers 200 response
+                  x-microcks-default: true
+                  value:
+                    total: 350
+                    providers:
+                    - id: ~abc123
+                      name: Jane Smith
+                      title: Senior Python Developer
+                      rate: 75.0
+                      currency: USD
+                      rating: 4.95
+                      skills:
+                      - Python
+                      - Machine Learning
+                      - Data Science
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /api/v3/profiles/v2/users/{user_id}:
+    get:
+      operationId: getFreelancerProfile
+      summary: Upwork Get Freelancer Profile
+      description: Retrieve the public profile for a specific freelancer or user.
+      tags:
+      - Profiles
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: The unique identifier or username of the user
+        schema:
+          type: string
+        example: ~abc123
+      responses:
+        '200':
+          description: Freelancer profile
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FreelancerProfile'
+              examples:
+                getFreelancerProfile200Example:
+                  summary: Default getFreelancerProfile 200 response
+                  x-microcks-default: true
+                  value:
+                    id: ~abc123
+                    name: Jane Smith
+                    title: Senior Python Developer
+                    rate: 75.0
+                    rating: 4.95
+                    jobsCompleted: 48
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
+    GraphQLError:
+      type: object
+      description: A GraphQL error
+      properties:
+        message:
+          type: string
+          description: Human-readable error message
+          example: Unauthorized access
+        locations:
+          type: array
+          description: Source locations of the error
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+                example: 2
+              column:
+                type: integer
+                example: 5
+        path:
+          type: array
+          description: Path to the field that caused the error
+          items:
+            type: string
+    FreelancerProfile:
+      type: object
+      description: A freelancer profile on Upwork
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the freelancer
+          example: ~abc123
+        name:
+          type: string
+          description: Full name of the freelancer
+          example: Jane Smith
+        title:
+          type: string
+          description: Professional title or headline
+          example: Senior Python Developer
+        description:
+          type: string
+          description: Profile overview/bio
+          example: Experienced Python developer with 8 years...
+        rate:
+          type: number
+          description: Hourly rate
+          example: 75.0
+        currency:
+          type: string
+          description: Rate currency
+          example: USD
+        rating:
+          type: number
+          description: Average client rating (0-5)
+          example: 4.95
+        jobsCompleted:
+          type: integer
+          description: Total number of completed jobs
+          example: 48
+        skills:
+          type: array
+          description: Skills listed on the profile
+          items:
+            type: string
+          example:
+          - Python
+          - Machine Learning
+          - Data Science
+        country:
+          type: string
+          description: Country of the freelancer
+          example: US
+        availability:
+          type: string
+          description: Current availability status
+          enum:
+          - full-time
+          - part-time
+          - not-available
+          example: full-time
+    FreelancerSearchResponse:
+      type: object
+      description: Paginated freelancer search results
+      properties:
+        total:
+          type: integer
+          description: Total number of matching freelancers
+          example: 350
+        providers:
+          type: array
+          description: List of freelancer profiles
+          items:
+            $ref: '#/components/schemas/FreelancerProfile'
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+  securitySchemes:
+    oauth2AuthCode:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow for Upwork API access. Obtain an authorization code by redirecting users to the Upwork OAuth consent page, then exchange for access and refresh tokens.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+          tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+          scopes:
+            openid: Access to user identity information
+            email: Access to user email
+            profile: Access to user profile data
+            jobs:read: Read job postings
+            contracts:read: Read contract data
+            messages:read: Read messages
+            messages:write: Send messages
+            profiles:read: Read freelancer profiles
+            reports:read: Read financial reports
+externalDocs:
+  description: Upwork GraphQL API Documentation
+  url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
