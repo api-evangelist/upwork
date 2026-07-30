@@ -8,9 +8,22 @@ description: >-
   user profiles, messages, and freelancer search. The platform serves over 800,000 clients and 18 million freelancers
   across 180+ countries.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upwork.png
 tags:
 - Freelancing
 - Jobs
@@ -23,26 +36,18 @@ created: '2026-03-16'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 apis:
-- aid: upwork:graphql-api
-  name: Upwork GraphQL API
-  description: >-
-    The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract
-    management, and messaging. Authentication uses OAuth 2.0 authorization code flow. The API supports subscriptions
-    for real-time event notifications via webhooks.
+- aid: upwork:upwork-authentication-api
+  name: Upwork Authentication API
+  description: OAuth 2.0 token management for API access.
   humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
   baseURL: https://api.upwork.com/graphql
   tags:
-  - GraphQL
-  - Jobs
-  - Contracts
-  - Profiles
-  - Messages
-  - Freelancing
+  - Authentication
   properties:
+  - type: OpenAPI
+    url: openapi/upwork-authentication-api-openapi.yml
   - type: Documentation
     url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
-  - type: OpenAPI
-    url: openapi/upwork-graphql-api-openapi.yml
   - type: JSONSchema
     url: json-schema/graphql-api-job-schema.json
   - type: JSONSchema
@@ -51,28 +56,192 @@ apis:
     url: json-schema/graphql-api-freelancer-profile-schema.json
   - type: JSONSchema
     url: json-schema/graphql-api-message-schema.json
-  - url: graphql/upwork-graphql.md
-    type: GraphQL
-- aid: upwork:rest-api
-  name: Upwork REST API
-  description: >-
-    The legacy REST API surface for Upwork, covering job search, contracts, reporting, organization management, and
-    freelancer profiles. OAuth 2.0 authentication is required. Many endpoints have been migrated to GraphQL.
-  humanURL: https://developers.upwork.com/
-  baseURL: https://www.upwork.com/api
-  tags:
-  - REST
-  - Jobs
-  - Contracts
-  - Profiles
-  - Reports
-  properties:
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
   - type: Documentation
     url: https://developers.upwork.com/
   - type: GettingStarted
     url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-contracts-api
+  name: Upwork Contracts API
+  description: Access and manage freelance contracts including terms, milestones, and time entries.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Contracts
+  properties:
   - type: OpenAPI
-    url: openapi/upwork-rest-api-openapi.yml
+    url: openapi/upwork-contracts-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-jobs-api
+  name: Upwork Jobs API
+  description: Search and retrieve job postings on the Upwork marketplace.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/upwork-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-messages-api
+  name: Upwork Messages API
+  description: Read and send messages within active contracts.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Messages
+  properties:
+  - type: OpenAPI
+    url: openapi/upwork-messages-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-organizations-api
+  name: Upwork Organizations API
+  description: Team and organization management.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Organizations
+  properties:
+  - type: OpenAPI
+    url: openapi/upwork-organizations-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-profiles-api
+  name: Upwork Profiles API
+  description: Query freelancer and client user profiles, skills, and ratings.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/upwork-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
+  - type: JSONSchema
+    url: json-schema/rest-api-report-response-schema.json
+  - type: JSONSchema
+    url: json-schema/rest-api-engagement-schema.json
+- aid: upwork:upwork-reports-api
+  name: Upwork Reports API
+  description: Financial and engagement reports for teams and organizations.
+  humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  baseURL: https://api.upwork.com/graphql
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/upwork-reports-api-openapi.yml
+  - type: Documentation
+    url: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
+  - type: JSONSchema
+    url: json-schema/graphql-api-job-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-contract-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-freelancer-profile-schema.json
+  - type: JSONSchema
+    url: json-schema/graphql-api-message-schema.json
+  - type: GraphQL
+    url: graphql/upwork-graphql.md
+  - type: Documentation
+    url: https://developers.upwork.com/
+  - type: GettingStarted
+    url: https://developers.upwork.com/#get-started
   - type: JSONSchema
     url: json-schema/rest-api-report-response-schema.json
   - type: JSONSchema
