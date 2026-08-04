@@ -1,0 +1,26 @@
+{
+  "provider": "upwork",
+  "sources": [
+    "upwork-authentication-api-openapi.yml",
+    "upwork-contracts-api-openapi.yml",
+    "upwork-jobs-api-openapi.yml",
+    "upwork-messages-api-openapi.yml",
+    "upwork-organizations-api-openapi.yml",
+    "upwork-profiles-api-openapi.yml",
+    "upwork-reports-api-openapi.yml"
+  ],
+  "outputs": [
+    "upwork-authentication-api-openapi.yml",
+    "upwork-contracts-api-openapi.yml",
+    "upwork-jobs-api-openapi.yml",
+    "upwork-messages-api-openapi.yml",
+    "upwork-organizations-api-openapi.yml",
+    "upwork-profiles-api-openapi.yml",
+    "upwork-reports-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

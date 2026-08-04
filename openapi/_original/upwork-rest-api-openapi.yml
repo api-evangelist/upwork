@@ -1,0 +1,287 @@
+openapi: 3.0.3
+info:
+  title: Upwork REST API
+  description: >-
+    The legacy Upwork REST API covering reports, financial data, organization
+    management, and freelancer time entries. Authentication uses OAuth 2.0.
+    Many resources have been migrated to the GraphQL API at api.upwork.com/graphql.
+  version: '3.0'
+  contact:
+    name: Upwork Developer Support
+    url: https://support.upwork.com/hc/en-us/sections/17976982721555-Upwork-API
+  x-generated-from: documentation
+externalDocs:
+  description: Upwork Developer Documentation
+  url: https://developers.upwork.com/
+servers:
+  - url: https://www.upwork.com/api
+    description: Upwork REST API
+tags:
+  - name: Reports
+    description: Financial and engagement reports for teams and organizations.
+  - name: Organizations
+    description: Team and organization management.
+  - name: Time Entries
+    description: Time tracking data for hourly contracts.
+security:
+  - oauth2AuthCode: []
+paths:
+  /v3/reports/companies/{company_id}/hours/hours_worked:
+    get:
+      operationId: getCompanyHoursWorked
+      summary: Upwork Get Company Hours Worked Report
+      description: >-
+        Retrieve hours worked report for a company within a date range.
+      tags:
+        - Reports
+      parameters:
+        - name: company_id
+          in: path
+          required: true
+          description: The company identifier
+          schema:
+            type: string
+          example: "company-abc123"
+        - name: tq
+          in: query
+          description: Table query for filtering (Upwork Query Language)
+          schema:
+            type: string
+          example: "SELECT worked_on, hours WHERE worked_on >= '2025-01-01'"
+      responses:
+        '200':
+          description: Hours worked report data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+              examples:
+                getCompanyHoursWorked200Example:
+                  summary: Default getCompanyHoursWorked 200 response
+                  x-microcks-default: true
+                  value:
+                    table:
+                      cols:
+                        - id: "worked_on"
+                          label: "Worked On"
+                          type: "date"
+                        - id: "hours"
+                          label: "Hours"
+                          type: "number"
+                      rows:
+                        - c:
+                            - v: "2025-01-15"
+                            - v: 8.0
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /v3/hr/v2/teams:
+    get:
+      operationId: listTeams
+      summary: Upwork List Teams
+      description: >-
+        List all teams in the authenticated user's organization.
+      tags:
+        - Organizations
+      responses:
+        '200':
+          description: List of teams
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TeamListResponse'
+              examples:
+                listTeams200Example:
+                  summary: Default listTeams 200 response
+                  x-microcks-default: true
+                  value:
+                    teams:
+                      - id: "team-abc123"
+                        name: "Engineering Team"
+                        status: "active"
+                        company_id: "company-abc123"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+  /v3/hr/v2/engagements:
+    get:
+      operationId: listEngagements
+      summary: Upwork List Engagements
+      description: >-
+        List all engagements (contracts) for the authenticated user's account.
+      tags:
+        - Organizations
+      parameters:
+        - name: status
+          in: query
+          description: Filter by engagement status
+          schema:
+            type: string
+            enum:
+              - active
+              - closed
+          example: "active"
+      responses:
+        '200':
+          description: List of engagements
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EngagementListResponse'
+              examples:
+                listEngagements200Example:
+                  summary: Default listEngagements 200 response
+                  x-microcks-default: true
+                  value:
+                    engagements:
+                      - id: "engagement-abc123"
+                        status: "active"
+                        job_title: "Python Developer"
+                        provider_id: "~abc123"
+                        rate: 75.00
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIError'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+
+components:
+  securitySchemes:
+    oauth2AuthCode:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow
+      flows:
+        authorizationCode:
+          authorizationUrl: https://www.upwork.com/ab/account-security/oauth2/authorize
+          tokenUrl: https://www.upwork.com/api/v3/oauth2/token
+          scopes:
+            openid: Access to user identity
+            reports:read: Read financial reports
+            contracts:read: Read contract data
+
+  schemas:
+    ReportResponse:
+      type: object
+      description: A report response in Google Visualization data table format
+      properties:
+        table:
+          type: object
+          description: Data table containing report results
+          properties:
+            cols:
+              type: array
+              description: Column definitions
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: "worked_on"
+                  label:
+                    type: string
+                    example: "Worked On"
+                  type:
+                    type: string
+                    example: "date"
+            rows:
+              type: array
+              description: Data rows
+              items:
+                type: object
+                properties:
+                  c:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        v:
+                          description: Cell value
+
+    TeamListResponse:
+      type: object
+      description: List of teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+
+    Team:
+      type: object
+      description: An Upwork team within an organization
+      properties:
+        id:
+          type: string
+          example: "team-abc123"
+        name:
+          type: string
+          example: "Engineering Team"
+        status:
+          type: string
+          enum: [active, inactive]
+          example: "active"
+        company_id:
+          type: string
+          example: "company-abc123"
+
+    EngagementListResponse:
+      type: object
+      description: List of engagements
+      properties:
+        engagements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engagement'
+
+    Engagement:
+      type: object
+      description: An engagement (contract) on Upwork
+      properties:
+        id:
+          type: string
+          example: "engagement-abc123"
+        status:
+          type: string
+          enum: [active, closed]
+          example: "active"
+        job_title:
+          type: string
+          example: "Python Developer"
+        provider_id:
+          type: string
+          example: "~abc123"
+        rate:
+          type: number
+          example: 75.00
+
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          example: "unauthorized"
+        message:
+          type: string
+          example: "Authentication failed."
+        code:
+          type: integer
+          example: 401
