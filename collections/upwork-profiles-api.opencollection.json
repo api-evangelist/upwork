@@ -1,0 +1,89 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork GraphQL Authentication Profiles API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Execute GraphQL Query or Mutation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields."
+        },
+        {
+          "info": {
+            "name": "Upwork Search Freelancers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/profiles/v2/search/providers",
+            "params": [
+              {
+                "name": "q",
+                "value": "python machine learning",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "paging",
+                "value": "0;10",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              }
+            ]
+          },
+          "docs": "Search for freelancers on the Upwork marketplace by skills, availability, rating, and other criteria."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Freelancer Profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/profiles/v2/users/:user_id",
+            "params": [
+              {
+                "name": "user_id",
+                "value": "~abc123",
+                "type": "path",
+                "description": "The unique identifier or username of the user"
+              }
+            ]
+          },
+          "docs": "Retrieve the public profile for a specific freelancer or user."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

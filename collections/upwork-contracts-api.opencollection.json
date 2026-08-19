@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork GraphQL Authentication Contracts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contracts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Execute GraphQL Query or Mutation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields."
+        },
+        {
+          "info": {
+            "name": "Upwork List Contracts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/hr/v2/contracts",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter by contract status"
+              },
+              {
+                "name": "buyer_team__reference",
+                "value": "team-abc123",
+                "type": "query",
+                "description": "Filter by buyer team reference ID"
+              },
+              {
+                "name": "paging",
+                "value": "0;20",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of contracts for the authenticated user. Includes both active and completed contracts with status, terms, and financial data."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Contract Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/hr/v2/contracts/:contract_id",
+            "params": [
+              {
+                "name": "contract_id",
+                "value": "contract-abc123",
+                "type": "path",
+                "description": "The unique identifier of the contract"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific contract including terms, milestones, time entries, and financial summary."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

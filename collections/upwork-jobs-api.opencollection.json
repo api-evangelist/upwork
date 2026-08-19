@@ -1,0 +1,107 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork GraphQL Authentication Jobs API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Jobs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork Execute GraphQL Query or Mutation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.upwork.com/graphql",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields."
+        },
+        {
+          "info": {
+            "name": "Upwork Search Jobs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/jobs/search",
+            "params": [
+              {
+                "name": "q",
+                "value": "python developer",
+                "type": "query",
+                "description": "Search query string"
+              },
+              {
+                "name": "skills",
+                "value": "python,django",
+                "type": "query",
+                "description": "Comma-separated list of required skills"
+              },
+              {
+                "name": "budget",
+                "value": "1000-5000",
+                "type": "query",
+                "description": "Budget range as min-max"
+              },
+              {
+                "name": "paging",
+                "value": "0;10",
+                "type": "query",
+                "description": "Pagination as offset;count"
+              },
+              {
+                "name": "sort",
+                "value": "recency",
+                "type": "query",
+                "description": "Sort order for results"
+              }
+            ]
+          },
+          "docs": "Search for job postings on the Upwork marketplace using REST API. Returns paginated list of job listings matching search criteria."
+        },
+        {
+          "info": {
+            "name": "Upwork Get Job Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/api/v3/jobs/:job_id",
+            "params": [
+              {
+                "name": "job_id",
+                "value": "~0123456789abcdef",
+                "type": "path",
+                "description": "The unique identifier of the job posting"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information for a specific job posting by its ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

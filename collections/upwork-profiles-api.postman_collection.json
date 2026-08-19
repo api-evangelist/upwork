@@ -1,0 +1,581 @@
+{
+  "item": [
+    {
+      "id": "bd8d61a6-e30a-47b8-af10-cf85c6a0d567",
+      "name": "Profiles",
+      "description": {
+        "content": "Query freelancer and client user profiles, skills, and ratings.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c10d4795-1734-43ee-97c8-4240228fd909",
+          "name": "Upwork Execute GraphQL Query or Mutation",
+          "request": {
+            "name": "Upwork Execute GraphQL Query or Mutation",
+            "description": {
+              "content": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": 7654,\n    \"key_1\": 6210,\n    \"key_2\": true\n  },\n  \"operationName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f1f885b2-cef4-4785-8da3-070bf80fadac",
+              "name": "GraphQL response with data or errors",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"marketplaceJobPostingsSearch\": {\n      \"total\": 1250,\n      \"results\": [\n        {\n          \"id\": \"~0123456789abcdef\",\n          \"title\": \"Python Developer for Data Pipeline\",\n          \"description\": \"Looking for an experienced Python developer...\",\n          \"skills\": [\n            {\n              \"name\": \"Python\"\n            },\n            {\n              \"name\": \"Data Engineering\"\n            }\n          ],\n          \"budget\": {\n            \"amount\": 5000,\n            \"currency\": \"USD\"\n          },\n          \"createdDateTime\": \"2025-03-15T14:30:00Z\"\n        }\n      ]\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ddebb61-35c6-44fc-99f3-7e4270e344ba",
+              "name": "Unauthorized - invalid or missing OAuth2 token",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ef6cee40-5a97-4485-94ca-d8949f32506d",
+              "name": "Rate limit exceeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cc672121-6c72-40f3-ba20-ce7cd4be10ae",
+          "name": "Upwork Search Freelancers",
+          "request": {
+            "name": "Upwork Search Freelancers",
+            "description": {
+              "content": "Search for freelancers on the Upwork marketplace by skills, availability, rating, and other criteria.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "profiles",
+                "v2",
+                "search",
+                "providers"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "q",
+                  "value": "<string>",
+                  "description": "Search query string"
+                },
+                {
+                  "disabled": false,
+                  "key": "paging",
+                  "value": "<string>",
+                  "description": "Pagination as offset;count"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f752d3d6-d3fe-4f21-879b-f5a256dbbeee",
+              "name": "List of freelancer profiles",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "profiles",
+                    "v2",
+                    "search",
+                    "providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "python machine learning"
+                    },
+                    {
+                      "key": "paging",
+                      "value": "0;10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 350,\n  \"providers\": [\n    {\n      \"id\": \"~abc123\",\n      \"name\": \"Jane Smith\",\n      \"title\": \"Senior Python Developer\",\n      \"rate\": 75,\n      \"currency\": \"USD\",\n      \"rating\": 4.95,\n      \"skills\": [\n        \"Python\",\n        \"Machine Learning\",\n        \"Data Science\"\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b6c736e0-d106-4af2-90f4-8053cb7b0413",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "profiles",
+                    "v2",
+                    "search",
+                    "providers"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "python machine learning"
+                    },
+                    {
+                      "key": "paging",
+                      "value": "0;10"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "543ce64b-e300-4863-bf6d-6f8a0895380e",
+          "name": "Upwork Get Freelancer Profile",
+          "request": {
+            "name": "Upwork Get Freelancer Profile",
+            "description": {
+              "content": "Retrieve the public profile for a specific freelancer or user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "api",
+                "v3",
+                "profiles",
+                "v2",
+                "users",
+                ":user_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "user_id",
+                  "description": "(Required) The unique identifier or username of the user"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6de5a849-a3bf-4b11-bbdb-01228a56426d",
+              "name": "Freelancer profile",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "profiles",
+                    "v2",
+                    "users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The unique identifier or username of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"~abc123\",\n  \"name\": \"Jane Smith\",\n  \"title\": \"Senior Python Developer\",\n  \"rate\": 75,\n  \"rating\": 4.95,\n  \"jobsCompleted\": 48\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaf361fb-7fa7-4d10-acec-c1bbd58f44d2",
+              "name": "User not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "api",
+                    "v3",
+                    "profiles",
+                    "v2",
+                    "users",
+                    ":user_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "user_id",
+                      "description": "(Required) The unique identifier or username of the user"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.upwork.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "openid email profile jobs:read contracts:read messages:read messages:write profiles:read reports:read"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://www.upwork.com/api/v3/oauth2/token"
+      },
+      {
+        "key": "authUrl",
+        "value": "https://www.upwork.com/ab/account-security/oauth2/authorize"
+      },
+      {
+        "key": "grant_type",
+        "value": "authorization_code"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f49b0976-0239-460b-be1e-df790d87c4d7",
+    "name": "Upwork GraphQL Authentication Profiles API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.\n\nContact Support:\n Name: Upwork Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

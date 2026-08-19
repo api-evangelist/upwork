@@ -1,0 +1,60 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Upwork GraphQL Authentication Organizations API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "authorization_code",
+      "authorizationUrl": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+      "accessTokenUrl": "https://www.upwork.com/api/v3/oauth2/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Organizations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upwork List Teams",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/v3/hr/v2/teams"
+          },
+          "docs": "List all teams in the authenticated user's organization."
+        },
+        {
+          "info": {
+            "name": "Upwork List Engagements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.upwork.com/v3/hr/v2/engagements",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter by engagement status"
+              }
+            ]
+          },
+          "docs": "List all engagements (contracts) for the authenticated user's account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
