@@ -26,6 +26,13 @@ access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/upwork.png
 tags:
 - Freelancing
+- Job
+- Talent
+- Marketplace
+- Contracts
+- Hiring
+tags_raw:
+- Freelancing
 - Jobs
 - Talent
 - Marketplace
@@ -78,6 +85,8 @@ apis:
   humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
   baseURL: https://api.upwork.com/graphql
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
@@ -96,6 +105,8 @@ apis:
   humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
   baseURL: https://api.upwork.com/graphql
   tags:
+  - Message
+  tags_raw:
   - Messages
   properties:
   - type: OpenAPI
@@ -114,6 +125,8 @@ apis:
   humanURL: https://www.upwork.com/developer/documentation/graphql/api/docs/index.html
   baseURL: https://api.upwork.com/graphql
   tags:
+  - Organization
+  tags_raw:
   - Organizations
   properties:
   - type: OpenAPI
