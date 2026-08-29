@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Upwork GraphQL Authentication Jobs API
+  title: Upwork GraphQL Jobs API
   description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
   version: 1.0.0
   contact:
@@ -205,22 +205,26 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Paging:
+    Client:
       type: object
-      description: Pagination information
+      description: A client on the Upwork platform
       properties:
-        offset:
-          type: integer
-          description: Current offset
-          example: 0
-        count:
-          type: integer
-          description: Number of items returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of items available
-          example: 1250
+        id:
+          type: string
+          description: Unique identifier for the client
+          example: ~def456
+        country:
+          type: string
+          description: Client country code
+          example: US
+        totalSpent:
+          type: number
+          description: Total amount spent on Upwork
+          example: 50000.0
+        rating:
+          type: number
+          description: Client rating
+          example: 4.8
     Budget:
       type: object
       description: Budget for a job posting
@@ -233,6 +237,49 @@ components:
           type: string
           description: Budget currency
           example: USD
+    Skill:
+      type: object
+      description: A skill associated with a job or profile
+      properties:
+        name:
+          type: string
+          description: Skill name
+          example: Python
+        uid:
+          type: string
+          description: Unique identifier for the skill
+          example: skill-123
+    JobSearchResponse:
+      type: object
+      description: Paginated job search results
+      properties:
+        total:
+          type: integer
+          description: Total number of matching jobs
+          example: 1250
+        paging:
+          $ref: '#/components/schemas/Paging'
+        jobs:
+          type: array
+          description: List of job postings
+          items:
+            $ref: '#/components/schemas/Job'
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
     GraphQLRequest:
       type: object
       description: A GraphQL request body containing the operation to execute
@@ -251,22 +298,60 @@ components:
           type: string
           description: Name of the operation to execute (for documents with multiple operations)
           example: SearchJobs
-    APIError:
+    GraphQLResponse:
       type: object
-      description: API error response
+      description: A GraphQL response containing data or errors
       properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+    Paging:
+      type: object
+      description: Pagination information
+      properties:
+        offset:
+          type: integer
+          description: Current offset
+          example: 0
+        count:
+          type: integer
+          description: Number of items returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of items available
+          example: 1250
+    GraphQLError:
+      type: object
+      description: A GraphQL error
+      properties:
         message:
           type: string
           description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
-          type: integer
-          description: HTTP status code
-          example: 401
+          example: Unauthorized access
+        locations:
+          type: array
+          description: Source locations of the error
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+                example: 2
+              column:
+                type: integer
+                example: 5
+        path:
+          type: array
+          description: Path to the field that caused the error
+          items:
+            type: string
     Job:
       type: object
       description: A job posting on the Upwork marketplace
@@ -324,91 +409,6 @@ components:
           - intermediate
           - expert
           example: intermediate
-    GraphQLError:
-      type: object
-      description: A GraphQL error
-      properties:
-        message:
-          type: string
-          description: Human-readable error message
-          example: Unauthorized access
-        locations:
-          type: array
-          description: Source locations of the error
-          items:
-            type: object
-            properties:
-              line:
-                type: integer
-                example: 2
-              column:
-                type: integer
-                example: 5
-        path:
-          type: array
-          description: Path to the field that caused the error
-          items:
-            type: string
-    JobSearchResponse:
-      type: object
-      description: Paginated job search results
-      properties:
-        total:
-          type: integer
-          description: Total number of matching jobs
-          example: 1250
-        paging:
-          $ref: '#/components/schemas/Paging'
-        jobs:
-          type: array
-          description: List of job postings
-          items:
-            $ref: '#/components/schemas/Job'
-    Client:
-      type: object
-      description: A client on the Upwork platform
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the client
-          example: ~def456
-        country:
-          type: string
-          description: Client country code
-          example: US
-        totalSpent:
-          type: number
-          description: Total amount spent on Upwork
-          example: 50000.0
-        rating:
-          type: number
-          description: Client rating
-          example: 4.8
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
-    Skill:
-      type: object
-      description: A skill associated with a job or profile
-      properties:
-        name:
-          type: string
-          description: Skill name
-          example: Python
-        uid:
-          type: string
-          description: Unique identifier for the skill
-          example: skill-123
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

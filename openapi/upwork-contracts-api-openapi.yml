@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Upwork GraphQL Authentication Contracts API
+  title: Upwork GraphQL Contracts API
   description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
   version: 1.0.0
   contact:
@@ -234,6 +234,19 @@ components:
           format: date-time
           description: When the contract ended (if closed)
           example: '2025-03-15T10:00:00Z'
+    ContractListResponse:
+      type: object
+      description: Paginated list of contracts
+      properties:
+        total:
+          type: integer
+          description: Total number of contracts
+          example: 25
+        contracts:
+          type: array
+          description: List of contracts
+          items:
+            $ref: '#/components/schemas/Contract'
     GraphQLRequest:
       type: object
       description: A GraphQL request body containing the operation to execute
@@ -268,19 +281,19 @@ components:
           type: integer
           description: HTTP status code
           example: 401
-    ContractListResponse:
+    GraphQLResponse:
       type: object
-      description: Paginated list of contracts
+      description: A GraphQL response containing data or errors
       properties:
-        total:
-          type: integer
-          description: Total number of contracts
-          example: 25
-        contracts:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
           type: array
-          description: List of contracts
+          description: List of GraphQL errors if the operation failed
           items:
-            $ref: '#/components/schemas/Contract'
+            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -306,19 +319,6 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

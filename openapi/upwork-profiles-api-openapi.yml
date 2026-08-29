@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Upwork GraphQL Authentication Profiles API
+  title: Upwork GraphQL Profiles API
   description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
   version: 1.0.0
   contact:
@@ -178,6 +178,19 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    FreelancerSearchResponse:
+      type: object
+      description: Paginated freelancer search results
+      properties:
+        total:
+          type: integer
+          description: Total number of matching freelancers
+          example: 350
+        providers:
+          type: array
+          description: List of freelancer profiles
+          items:
+            $ref: '#/components/schemas/FreelancerProfile'
     GraphQLRequest:
       type: object
       description: A GraphQL request body containing the operation to execute
@@ -212,6 +225,19 @@ components:
           type: integer
           description: HTTP status code
           example: 401
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -294,32 +320,6 @@ components:
           - part-time
           - not-available
           example: full-time
-    FreelancerSearchResponse:
-      type: object
-      description: Paginated freelancer search results
-      properties:
-        total:
-          type: integer
-          description: Total number of matching freelancers
-          example: 350
-        providers:
-          type: array
-          description: List of freelancer profiles
-          items:
-            $ref: '#/components/schemas/FreelancerProfile'
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

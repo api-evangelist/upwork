@@ -1,26 +1,33 @@
 {
   "provider": "upwork",
   "sources": [
-    "upwork-authentication-api-openapi.yml",
-    "upwork-contracts-api-openapi.yml",
-    "upwork-jobs-api-openapi.yml",
-    "upwork-messages-api-openapi.yml",
-    "upwork-organizations-api-openapi.yml",
-    "upwork-profiles-api-openapi.yml",
-    "upwork-reports-api-openapi.yml"
+    "_original/upwork-graphql-api-openapi.yml",
+    "_original/upwork-rest-api-openapi.yml"
   ],
   "outputs": [
     "upwork-authentication-api-openapi.yml",
     "upwork-contracts-api-openapi.yml",
     "upwork-jobs-api-openapi.yml",
     "upwork-messages-api-openapi.yml",
-    "upwork-organizations-api-openapi.yml",
     "upwork-profiles-api-openapi.yml",
+    "upwork-organizations-api-openapi.yml",
     "upwork-reports-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "upwork-graphql-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "upwork-rest-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+  ],
+  "skipped": [
+    "upwork-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-contracts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-jobs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-messages-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-organizations-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-profiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "upwork-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

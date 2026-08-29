@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Upwork GraphQL Authentication Messages API
+  title: Upwork GraphQL Messages API
   description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
   version: 1.0.0
   contact:
@@ -182,6 +182,16 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    MessageCreate:
+      type: object
+      description: Request body for sending a message
+      required:
+      - message
+      properties:
+        message:
+          type: string
+          description: The message text to send
+          example: Thank you for the update, I'll review shortly.
     Message:
       type: object
       description: A message in a contract messaging room
@@ -245,6 +255,32 @@ components:
           type: integer
           description: HTTP status code
           example: 401
+    MessageListResponse:
+      type: object
+      description: Paginated list of messages
+      properties:
+        total:
+          type: integer
+          description: Total number of messages
+          example: 48
+        messages:
+          type: array
+          description: List of messages
+          items:
+            $ref: '#/components/schemas/Message'
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -270,42 +306,6 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
-    MessageListResponse:
-      type: object
-      description: Paginated list of messages
-      properties:
-        total:
-          type: integer
-          description: Total number of messages
-          example: 48
-        messages:
-          type: array
-          description: List of messages
-          items:
-            $ref: '#/components/schemas/Message'
-    MessageCreate:
-      type: object
-      description: Request body for sending a message
-      required:
-      - message
-      properties:
-        message:
-          type: string
-          description: The message text to send
-          example: Thank you for the update, I'll review shortly.
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

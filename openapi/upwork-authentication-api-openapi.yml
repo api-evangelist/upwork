@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Upwork GraphQL Authentication API
   description: The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.
