@@ -103,25 +103,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Engagement'
-    Team:
-      type: object
-      description: An Upwork team within an organization
-      properties:
-        id:
-          type: string
-          example: team-abc123
-        name:
-          type: string
-          example: Engineering Team
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          example: active
-        company_id:
-          type: string
-          example: company-abc123
     Engagement:
       type: object
       description: An engagement (contract) on Upwork
@@ -165,6 +146,25 @@ components:
         code:
           type: integer
           example: 401
+    Team:
+      type: object
+      description: An Upwork team within an organization
+      properties:
+        id:
+          type: string
+          example: team-abc123
+        name:
+          type: string
+          example: Engineering Team
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        company_id:
+          type: string
+          example: company-abc123
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

@@ -90,22 +90,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    APIError:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
-          type: integer
-          description: HTTP status code
-          example: 401
     OAuthToken:
       type: object
       description: OAuth2 access token response
@@ -126,6 +110,22 @@ components:
           type: integer
           description: Token lifetime in seconds
           example: 86400
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

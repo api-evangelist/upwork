@@ -1,8 +1,8 @@
 {
   "provider": "upwork",
   "sources": [
-    "_original/upwork-graphql-api-openapi.yml",
-    "_original/upwork-rest-api-openapi.yml"
+    "_ae-authored/upwork-graphql-api-openapi.yml",
+    "_ae-authored/upwork-rest-api-openapi.yml"
   ],
   "outputs": [
     "upwork-authentication-api-openapi.yml",
@@ -17,9 +17,10 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "sourced from openapi/_original/ (2 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
     "upwork-graphql-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "upwork-rest-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0"
+    "upwork-rest-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
   ],
   "skipped": [
     "upwork-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",

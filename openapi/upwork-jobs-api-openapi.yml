@@ -205,128 +205,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    Client:
-      type: object
-      description: A client on the Upwork platform
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the client
-          example: ~def456
-        country:
-          type: string
-          description: Client country code
-          example: US
-        totalSpent:
-          type: number
-          description: Total amount spent on Upwork
-          example: 50000.0
-        rating:
-          type: number
-          description: Client rating
-          example: 4.8
-    Budget:
-      type: object
-      description: Budget for a job posting
-      properties:
-        amount:
-          type: number
-          description: Budget amount
-          example: 5000.0
-        currency:
-          type: string
-          description: Budget currency
-          example: USD
-    Skill:
-      type: object
-      description: A skill associated with a job or profile
-      properties:
-        name:
-          type: string
-          description: Skill name
-          example: Python
-        uid:
-          type: string
-          description: Unique identifier for the skill
-          example: skill-123
-    JobSearchResponse:
-      type: object
-      description: Paginated job search results
-      properties:
-        total:
-          type: integer
-          description: Total number of matching jobs
-          example: 1250
-        paging:
-          $ref: '#/components/schemas/Paging'
-        jobs:
-          type: array
-          description: List of job postings
-          items:
-            $ref: '#/components/schemas/Job'
-    APIError:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
-          type: integer
-          description: HTTP status code
-          example: 401
-    GraphQLRequest:
-      type: object
-      description: A GraphQL request body containing the operation to execute
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation string
-          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
-        variables:
-          type: object
-          description: Variables for the GraphQL operation
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (for documents with multiple operations)
-          example: SearchJobs
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
-    Paging:
-      type: object
-      description: Pagination information
-      properties:
-        offset:
-          type: integer
-          description: Current offset
-          example: 0
-        count:
-          type: integer
-          description: Number of items returned
-          example: 10
-        total:
-          type: integer
-          description: Total number of items available
-          example: 1250
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -352,6 +230,128 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
+    Budget:
+      type: object
+      description: Budget for a job posting
+      properties:
+        amount:
+          type: number
+          description: Budget amount
+          example: 5000.0
+        currency:
+          type: string
+          description: Budget currency
+          example: USD
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
+    Skill:
+      type: object
+      description: A skill associated with a job or profile
+      properties:
+        name:
+          type: string
+          description: Skill name
+          example: Python
+        uid:
+          type: string
+          description: Unique identifier for the skill
+          example: skill-123
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
+    Paging:
+      type: object
+      description: Pagination information
+      properties:
+        offset:
+          type: integer
+          description: Current offset
+          example: 0
+        count:
+          type: integer
+          description: Number of items returned
+          example: 10
+        total:
+          type: integer
+          description: Total number of items available
+          example: 1250
+    JobSearchResponse:
+      type: object
+      description: Paginated job search results
+      properties:
+        total:
+          type: integer
+          description: Total number of matching jobs
+          example: 1250
+        paging:
+          $ref: '#/components/schemas/Paging'
+        jobs:
+          type: array
+          description: List of job postings
+          items:
+            $ref: '#/components/schemas/Job'
+    Client:
+      type: object
+      description: A client on the Upwork platform
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the client
+          example: ~def456
+        country:
+          type: string
+          description: Client country code
+          example: US
+        totalSpent:
+          type: number
+          description: Total amount spent on Upwork
+          example: 50000.0
+        rating:
+          type: number
+          description: Client rating
+          example: 4.8
     Job:
       type: object
       description: A job posting on the Upwork marketplace
