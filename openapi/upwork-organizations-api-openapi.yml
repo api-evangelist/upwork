@@ -95,14 +95,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    EngagementListResponse:
-      type: object
-      description: List of engagements
-      properties:
-        engagements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engagement'
     Engagement:
       type: object
       description: An engagement (contract) on Upwork
@@ -125,6 +117,33 @@ components:
         rate:
           type: number
           example: 75.0
+    Team:
+      type: object
+      description: An Upwork team within an organization
+      properties:
+        id:
+          type: string
+          example: team-abc123
+        name:
+          type: string
+          example: Engineering Team
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        company_id:
+          type: string
+          example: company-abc123
+    EngagementListResponse:
+      type: object
+      description: List of engagements
+      properties:
+        engagements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engagement'
     TeamListResponse:
       type: object
       description: List of teams
@@ -146,25 +165,6 @@ components:
         code:
           type: integer
           example: 401
-    Team:
-      type: object
-      description: An Upwork team within an organization
-      properties:
-        id:
-          type: string
-          example: team-abc123
-        name:
-          type: string
-          example: Engineering Team
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          example: active
-        company_id:
-          type: string
-          example: company-abc123
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

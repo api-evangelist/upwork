@@ -203,37 +203,6 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
-    GraphQLRequest:
-      type: object
-      description: A GraphQL request body containing the operation to execute
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation string
-          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
-        variables:
-          type: object
-          description: Variables for the GraphQL operation
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (for documents with multiple operations)
-          example: SearchJobs
-    FreelancerSearchResponse:
-      type: object
-      description: Paginated freelancer search results
-      properties:
-        total:
-          type: integer
-          description: Total number of matching freelancers
-          example: 350
-        providers:
-          type: array
-          description: List of freelancer profiles
-          items:
-            $ref: '#/components/schemas/FreelancerProfile'
     GraphQLResponse:
       type: object
       description: A GraphQL response containing data or errors
@@ -247,22 +216,19 @@ components:
           description: List of GraphQL errors if the operation failed
           items:
             $ref: '#/components/schemas/GraphQLError'
-    APIError:
+    FreelancerSearchResponse:
       type: object
-      description: API error response
+      description: Paginated freelancer search results
       properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
+        total:
           type: integer
-          description: HTTP status code
-          example: 401
+          description: Total number of matching freelancers
+          example: 350
+        providers:
+          type: array
+          description: List of freelancer profiles
+          items:
+            $ref: '#/components/schemas/FreelancerProfile'
     FreelancerProfile:
       type: object
       description: A freelancer profile on Upwork
@@ -320,6 +286,40 @@ components:
           - part-time
           - not-available
           example: full-time
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
   securitySchemes:
     oauth2AuthCode:
       type: oauth2
