@@ -184,19 +184,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ContractListResponse:
+    GraphQLRequest:
       type: object
-      description: Paginated list of contracts
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
       properties:
-        total:
-          type: integer
-          description: Total number of contracts
-          example: 25
-        contracts:
-          type: array
-          description: List of contracts
-          items:
-            $ref: '#/components/schemas/Contract'
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -235,6 +240,19 @@ components:
           description: List of GraphQL errors if the operation failed
           items:
             $ref: '#/components/schemas/GraphQLError'
+    ContractListResponse:
+      type: object
+      description: Paginated list of contracts
+      properties:
+        total:
+          type: integer
+          description: Total number of contracts
+          example: 25
+        contracts:
+          type: array
+          description: List of contracts
+          items:
+            $ref: '#/components/schemas/Contract'
     Contract:
       type: object
       description: A freelance contract between a client and freelancer on Upwork
@@ -285,24 +303,6 @@ components:
           format: date-time
           description: When the contract ended (if closed)
           example: '2025-03-15T10:00:00Z'
-    GraphQLRequest:
-      type: object
-      description: A GraphQL request body containing the operation to execute
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation string
-          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
-        variables:
-          type: object
-          description: Variables for the GraphQL operation
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (for documents with multiple operations)
-          example: SearchJobs
     APIError:
       type: object
       description: API error response

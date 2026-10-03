@@ -178,6 +178,24 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -216,19 +234,6 @@ components:
           description: List of GraphQL errors if the operation failed
           items:
             $ref: '#/components/schemas/GraphQLError'
-    FreelancerSearchResponse:
-      type: object
-      description: Paginated freelancer search results
-      properties:
-        total:
-          type: integer
-          description: Total number of matching freelancers
-          example: 350
-        providers:
-          type: array
-          description: List of freelancer profiles
-          items:
-            $ref: '#/components/schemas/FreelancerProfile'
     FreelancerProfile:
       type: object
       description: A freelancer profile on Upwork
@@ -286,24 +291,19 @@ components:
           - part-time
           - not-available
           example: full-time
-    GraphQLRequest:
+    FreelancerSearchResponse:
       type: object
-      description: A GraphQL request body containing the operation to execute
-      required:
-      - query
+      description: Paginated freelancer search results
       properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation string
-          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
-        variables:
-          type: object
-          description: Variables for the GraphQL operation
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (for documents with multiple operations)
-          example: SearchJobs
+        total:
+          type: integer
+          description: Total number of matching freelancers
+          example: 350
+        providers:
+          type: array
+          description: List of freelancer profiles
+          items:
+            $ref: '#/components/schemas/FreelancerProfile'
     APIError:
       type: object
       description: API error response

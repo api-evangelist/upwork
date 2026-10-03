@@ -95,6 +95,41 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    TeamListResponse:
+      type: object
+      description: List of teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    EngagementListResponse:
+      type: object
+      description: List of engagements
+      properties:
+        engagements:
+          type: array
+          items:
+            $ref: '#/components/schemas/Engagement'
+    Team:
+      type: object
+      description: An Upwork team within an organization
+      properties:
+        id:
+          type: string
+          example: team-abc123
+        name:
+          type: string
+          example: Engineering Team
+        status:
+          type: string
+          enum:
+          - active
+          - inactive
+          example: active
+        company_id:
+          type: string
+          example: company-abc123
     Engagement:
       type: object
       description: An engagement (contract) on Upwork
@@ -117,41 +152,6 @@ components:
         rate:
           type: number
           example: 75.0
-    Team:
-      type: object
-      description: An Upwork team within an organization
-      properties:
-        id:
-          type: string
-          example: team-abc123
-        name:
-          type: string
-          example: Engineering Team
-        status:
-          type: string
-          enum:
-          - active
-          - inactive
-          example: active
-        company_id:
-          type: string
-          example: company-abc123
-    EngagementListResponse:
-      type: object
-      description: List of engagements
-      properties:
-        engagements:
-          type: array
-          items:
-            $ref: '#/components/schemas/Engagement'
-    TeamListResponse:
-      type: object
-      description: List of teams
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     APIError:
       type: object
       description: API error response
