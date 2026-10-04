@@ -205,21 +205,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    JobSearchResponse:
+    APIError:
       type: object
-      description: Paginated job search results
+      description: API error response
       properties:
-        total:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
           type: integer
-          description: Total number of matching jobs
-          example: 1250
-        paging:
-          $ref: '#/components/schemas/Paging'
-        jobs:
-          type: array
-          description: List of job postings
-          items:
-            $ref: '#/components/schemas/Job'
+          description: HTTP status code
+          example: 401
     GraphQLRequest:
       type: object
       description: A GraphQL request body containing the operation to execute
@@ -287,6 +288,26 @@ components:
           type: string
           description: Budget currency
           example: USD
+    Client:
+      type: object
+      description: A client on the Upwork platform
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the client
+          example: ~def456
+        country:
+          type: string
+          description: Client country code
+          example: US
+        totalSpent:
+          type: number
+          description: Total amount spent on Upwork
+          example: 50000.0
+        rating:
+          type: number
+          description: Client rating
+          example: 4.8
     GraphQLResponse:
       type: object
       description: A GraphQL response containing data or errors
@@ -357,22 +378,21 @@ components:
           - intermediate
           - expert
           example: intermediate
-    APIError:
+    JobSearchResponse:
       type: object
-      description: API error response
+      description: Paginated job search results
       properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
+        total:
           type: integer
-          description: HTTP status code
-          example: 401
+          description: Total number of matching jobs
+          example: 1250
+        paging:
+          $ref: '#/components/schemas/Paging'
+        jobs:
+          type: array
+          description: List of job postings
+          items:
+            $ref: '#/components/schemas/Job'
     Paging:
       type: object
       description: Pagination information
@@ -389,26 +409,6 @@ components:
           type: integer
           description: Total number of items available
           example: 1250
-    Client:
-      type: object
-      description: A client on the Upwork platform
-      properties:
-        id:
-          type: string
-          description: Unique identifier for the client
-          example: ~def456
-        country:
-          type: string
-          description: Client country code
-          example: US
-        totalSpent:
-          type: number
-          description: Total amount spent on Upwork
-          example: 50000.0
-        rating:
-          type: number
-          description: Client rating
-          example: 4.8
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

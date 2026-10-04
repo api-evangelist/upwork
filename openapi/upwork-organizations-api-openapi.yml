@@ -95,14 +95,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    TeamListResponse:
-      type: object
-      description: List of teams
-      properties:
-        teams:
-          type: array
-          items:
-            $ref: '#/components/schemas/Team'
     EngagementListResponse:
       type: object
       description: List of engagements
@@ -111,6 +103,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Engagement'
+    TeamListResponse:
+      type: object
+      description: List of teams
+      properties:
+        teams:
+          type: array
+          items:
+            $ref: '#/components/schemas/Team'
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          example: unauthorized
+        message:
+          type: string
+          example: Authentication failed.
+        code:
+          type: integer
+          example: 401
     Team:
       type: object
       description: An Upwork team within an organization
@@ -152,19 +165,6 @@ components:
         rate:
           type: number
           example: 75.0
-    APIError:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          example: unauthorized
-        message:
-          type: string
-          example: Authentication failed.
-        code:
-          type: integer
-          example: 401
   securitySchemes:
     oauth2AuthCode:
       type: oauth2

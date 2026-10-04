@@ -178,6 +178,22 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    APIError:
+      type: object
+      description: API error response
+      properties:
+        error:
+          type: string
+          description: Error code
+          example: unauthorized
+        message:
+          type: string
+          description: Human-readable error message
+          example: Authentication failed. Please check your credentials.
+        code:
+          type: integer
+          description: HTTP status code
+          example: 401
     GraphQLRequest:
       type: object
       description: A GraphQL request body containing the operation to execute
@@ -221,19 +237,19 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
-    GraphQLResponse:
+    FreelancerSearchResponse:
       type: object
-      description: A GraphQL response containing data or errors
+      description: Paginated freelancer search results
       properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
+        total:
+          type: integer
+          description: Total number of matching freelancers
+          example: 350
+        providers:
           type: array
-          description: List of GraphQL errors if the operation failed
+          description: List of freelancer profiles
           items:
-            $ref: '#/components/schemas/GraphQLError'
+            $ref: '#/components/schemas/FreelancerProfile'
     FreelancerProfile:
       type: object
       description: A freelancer profile on Upwork
@@ -291,35 +307,19 @@ components:
           - part-time
           - not-available
           example: full-time
-    FreelancerSearchResponse:
+    GraphQLResponse:
       type: object
-      description: Paginated freelancer search results
+      description: A GraphQL response containing data or errors
       properties:
-        total:
-          type: integer
-          description: Total number of matching freelancers
-          example: 350
-        providers:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
           type: array
-          description: List of freelancer profiles
+          description: List of GraphQL errors if the operation failed
           items:
-            $ref: '#/components/schemas/FreelancerProfile'
-    APIError:
-      type: object
-      description: API error response
-      properties:
-        error:
-          type: string
-          description: Error code
-          example: unauthorized
-        message:
-          type: string
-          description: Human-readable error message
-          example: Authentication failed. Please check your credentials.
-        code:
-          type: integer
-          description: HTTP status code
-          example: 401
+            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     oauth2AuthCode:
       type: oauth2
