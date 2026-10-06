@@ -53,7 +53,7 @@ tags_raw:
 - Hiring
 url: https://raw.githubusercontent.com/api-evangelist/upwork/refs/heads/main/apis.yml
 created: '2026-03-16'
-modified: '2026-05-19'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: upwork:upwork-authentication-api
@@ -189,6 +189,8 @@ apis:
   - type: GettingStarted
     url: https://developers.upwork.com/#get-started
 common:
+- url: https://www.upwork.com/blog
+  type: Blog
 - type: IssueTracker
   url: https://github.com/upwork/python-upwork-oauth2/issues
 - type: Releases
