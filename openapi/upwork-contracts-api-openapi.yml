@@ -184,6 +184,37 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    GraphQLRequest:
+      type: object
+      description: A GraphQL request body containing the operation to execute
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: The GraphQL query or mutation string
+          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
+        variables:
+          type: object
+          description: Variables for the GraphQL operation
+          additionalProperties: true
+        operationName:
+          type: string
+          description: Name of the operation to execute (for documents with multiple operations)
+          example: SearchJobs
+    GraphQLResponse:
+      type: object
+      description: A GraphQL response containing data or errors
+      properties:
+        data:
+          type: object
+          description: The response data for the operation
+          additionalProperties: true
+        errors:
+          type: array
+          description: List of GraphQL errors if the operation failed
+          items:
+            $ref: '#/components/schemas/GraphQLError'
     Contract:
       type: object
       description: A freelance contract between a client and freelancer on Upwork
@@ -263,24 +294,6 @@ components:
           type: integer
           description: HTTP status code
           example: 401
-    GraphQLRequest:
-      type: object
-      description: A GraphQL request body containing the operation to execute
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: The GraphQL query or mutation string
-          example: 'query { marketplaceJobPostingsSearch(searchExpression: "python") { total } }'
-        variables:
-          type: object
-          description: Variables for the GraphQL operation
-          additionalProperties: true
-        operationName:
-          type: string
-          description: Name of the operation to execute (for documents with multiple operations)
-          example: SearchJobs
     GraphQLError:
       type: object
       description: A GraphQL error
@@ -306,19 +319,6 @@ components:
           description: Path to the field that caused the error
           items:
             type: string
-    GraphQLResponse:
-      type: object
-      description: A GraphQL response containing data or errors
-      properties:
-        data:
-          type: object
-          description: The response data for the operation
-          additionalProperties: true
-        errors:
-          type: array
-          description: List of GraphQL errors if the operation failed
-          items:
-            $ref: '#/components/schemas/GraphQLError'
   securitySchemes:
     oauth2AuthCode:
       type: oauth2
