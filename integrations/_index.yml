@@ -35,3 +35,45 @@
     detected: '2026-10-15'
   status: not-a-workflow
   arazzo: null
+- slug: upwork-meltano
+  label: Meltano
+  partner: meltano
+  partner_name: Meltano
+  type: marketplace
+  marketplace: meltano-hub
+  channel: elt-connector
+  evidence: https://hub.meltano.com/extractors/tap-upwork--automattic
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Meltano Hub (github.com/meltano/hub _data/meltano extractors + loaders)
+    spec_file: null
+    role: elt-connector:meltano-hub
+    registered_name: Upwork
+    matched_domain: upwork.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    plugins:
+    - tap-upwork--automattic
+    maintenance_status:
+    - active
+    quality:
+    - silver
+    builder: 'community (Meltano Hub variant maintainers: automattic)'
+  status: pending-partner-spec
+  arazzo: null
+- slug: upwork-microsoft-teams-own
+  label: Microsoft Teams (own)
+  partner: microsoft-teams
+  partner_name: Microsoft Teams (own)
+  category: Microsoft Teams app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://appsource.microsoft.com/en-us/product/office/WA200012334
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
