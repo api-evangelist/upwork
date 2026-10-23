@@ -189,6 +189,8 @@ apis:
   - type: GettingStarted
     url: https://developers.upwork.com/#get-started
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/upwork/overview
 - type: Plans
   url: plans/upwork-plans-pricing.yml
 - type: RateLimits
