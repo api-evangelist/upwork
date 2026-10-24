@@ -1,32 +1,26 @@
 {
+  "info": {
+    "_postman_id": "fa9e9be8-787a-4b06-8f5c-e99388336c32",
+    "name": "Upwork GraphQL Jobs API",
+    "description": "The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.\n\nContact Support:\n Name: Upwork Developer Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-21T20:01:59.000Z",
+    "updatedAt": "2026-10-21T20:01:59.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-fa9e9be8-787a-4b06-8f5c-e99388336c32"
+  },
   "item": [
     {
-      "id": "dafb7972-a670-46a9-b73d-f8bd6330e0a3",
-      "name": "Jobs",
-      "description": {
-        "content": "Search and retrieve job postings on the Upwork marketplace.",
-        "type": "text/plain"
-      },
+      "name": "graphql",
       "item": [
         {
-          "id": "d8766922-2765-4e34-b682-13ec4a7366f4",
           "name": "Upwork Execute GraphQL Query or Mutation",
+          "id": "35bce492-17a5-412d-98a8-0670739b2c83",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Upwork Execute GraphQL Query or Mutation",
-            "description": {
-              "content": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "graphql"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,545 +31,598 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": false,\n    \"key_1\": true,\n    \"key_2\": \"string\"\n  },\n  \"operationName\": \"<string>\"\n}",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"veniam_ed\": \"cillum sed in commodo laboris\",\n    \"anim4e8\": true\n  },\n  \"operationName\": \"<string>\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/graphql",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ]
+            },
+            "description": "Execute a GraphQL query, mutation, or subscription against the Upwork API. All GraphQL operations are sent as POST requests to this endpoint with a JSON body containing the query, optional variables, and optional operation name. Returns JSON with data and optional errors fields."
           },
           "response": [
             {
-              "id": "c78f869b-d502-4109-ae28-cdd4b3bd278b",
+              "id": "c65292a6-123e-4942-9582-76787db7fa9f",
               "name": "GraphQL response with data or errors",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "graphql"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"veniam_ed\": \"cillum sed in commodo laboris\",\n    \"anim4e8\": true\n  },\n  \"operationName\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"data\": {\n    \"marketplaceJobPostingsSearch\": {\n      \"total\": 1250,\n      \"results\": [\n        {\n          \"id\": \"~0123456789abcdef\",\n          \"title\": \"Python Developer for Data Pipeline\",\n          \"description\": \"Looking for an experienced Python developer...\",\n          \"skills\": [\n            {\n              \"name\": \"Python\"\n            },\n            {\n              \"name\": \"Data Engineering\"\n            }\n          ],\n          \"budget\": {\n            \"amount\": 5000,\n            \"currency\": \"USD\"\n          },\n          \"createdDateTime\": \"2025-03-15T14:30:00Z\"\n        }\n      ]\n    }\n  }\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"data\": {\n    \"ullamco_3ad\": -87349059.10008956,\n    \"laborum845\": 82181321.91287318\n  },\n  \"errors\": [\n    {\n      \"message\": \"<string>\",\n      \"locations\": [\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        },\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        }\n      ],\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    },\n    {\n      \"message\": \"<string>\",\n      \"locations\": [\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        },\n        {\n          \"line\": \"<integer>\",\n          \"column\": \"<integer>\"\n        }\n      ],\n      \"path\": [\n        \"<string>\",\n        \"<string>\"\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-10-21T20:01:59.000Z",
+              "updatedAt": "2026-10-21T20:01:59.000Z",
+              "uid": "35240-c65292a6-123e-4942-9582-76787db7fa9f"
             },
             {
-              "id": "a2faac45-ad73-469c-b493-29d7fea7512c",
+              "id": "ec3f0036-74e1-4a78-aad8-ce3d0a9b44c6",
               "name": "Unauthorized - invalid or missing OAuth2 token",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "graphql"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"veniam_ed\": \"cillum sed in commodo laboris\",\n    \"anim4e8\": true\n  },\n  \"operationName\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-10-21T20:01:59.000Z",
+              "updatedAt": "2026-10-21T20:01:59.000Z",
+              "uid": "35240-ec3f0036-74e1-4a78-aad8-ce3d0a9b44c6"
             },
             {
-              "id": "8487a7be-1d81-4d11-9f21-2c317073ff6f",
+              "id": "c4154347-e9da-4d13-8baa-3b6a583d0baa",
               "name": "Rate limit exceeded",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "graphql"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: oauth2",
+                    "key": "Authorization",
+                    "value": "<token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"query\": \"query SearchJobs($searchExpression: String, $paging: PagingInput) {\\n  marketplaceJobPostingsSearch(searchExpression: $searchExpression, paging: $paging) {\\n    total\\n    results {\\n      id\\n      title\\n      description\\n      skills { name }\\n      budget { amount currency }\\n      createdDateTime\\n      client { id country }\\n    }\\n  }\\n}\\n\",\n  \"variables\": {\n    \"searchExpression\": \"python developer\",\n    \"paging\": {\n      \"offset\": 0,\n      \"count\": 10\n    }\n  }\n}",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"veniam_ed\": \"cillum sed in commodo laboris\",\n    \"anim4e8\": true\n  },\n  \"operationName\": \"<string>\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/graphql",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "graphql"
+                  ]
                 }
               },
               "status": "Too Many Requests",
               "code": 429,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+              "createdAt": "2026-10-21T20:01:59.000Z",
+              "updatedAt": "2026-10-21T20:01:59.000Z",
+              "uid": "35240-c4154347-e9da-4d13-8baa-3b6a583d0baa"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "eaa95418-8ed7-4633-85d0-2d9aa95ddbaa",
-          "name": "Upwork Search Jobs",
-          "request": {
-            "name": "Upwork Search Jobs",
-            "description": {
-              "content": "Search for job postings on the Upwork marketplace using REST API. Returns paginated list of job listings matching search criteria.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v3",
-                "jobs",
-                "search"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
-                {
-                  "disabled": false,
-                  "key": "q",
-                  "value": "<string>",
-                  "description": "Search query string"
-                },
-                {
-                  "disabled": false,
-                  "key": "skills",
-                  "value": "<string>",
-                  "description": "Comma-separated list of required skills"
-                },
-                {
-                  "disabled": false,
-                  "key": "budget",
-                  "value": "<string>",
-                  "description": "Budget range as min-max"
-                },
-                {
-                  "disabled": false,
-                  "key": "paging",
-                  "value": "<string>",
-                  "description": "Pagination as offset;count"
-                },
-                {
-                  "disabled": false,
-                  "key": "sort",
-                  "value": "<string>",
-                  "description": "Sort order for results"
-                }
-              ],
-              "variable": []
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "8100d93f-a7b0-4818-ba10-2f1a78af74e1",
-              "name": "Paginated list of job postings",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v3",
-                    "jobs",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "python developer"
-                    },
-                    {
-                      "key": "skills",
-                      "value": "python,django"
-                    },
-                    {
-                      "key": "budget",
-                      "value": "1000-5000"
-                    },
-                    {
-                      "key": "paging",
-                      "value": "0;10"
-                    },
-                    {
-                      "key": "sort",
-                      "value": "recency"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"total\": 1250,\n  \"paging\": {\n    \"offset\": 0,\n    \"count\": 10,\n    \"total\": 1250\n  },\n  \"jobs\": [\n    {\n      \"id\": \"~0123456789abcdef\",\n      \"title\": \"Python Developer for Data Pipeline\",\n      \"status\": \"open\",\n      \"budget\": {\n        \"amount\": 5000,\n        \"currency\": \"USD\"\n      },\n      \"skills\": [\n        \"Python\",\n        \"Data Engineering\"\n      ],\n      \"createdDateTime\": \"2025-03-15T14:30:00Z\"\n    }\n  ]\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "02e4f5cd-f162-4646-91a5-9b0019de083a",
-              "name": "Unauthorized",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v3",
-                    "jobs",
-                    "search"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "q",
-                      "value": "python developer"
-                    },
-                    {
-                      "key": "skills",
-                      "value": "python,django"
-                    },
-                    {
-                      "key": "budget",
-                      "value": "1000-5000"
-                    },
-                    {
-                      "key": "paging",
-                      "value": "0;10"
-                    },
-                    {
-                      "key": "sort",
-                      "value": "recency"
-                    }
-                  ],
-                  "variable": []
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Unauthorized",
-              "code": 401,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
-        },
-        {
-          "id": "80dd244c-40a3-4e44-b2f1-79ee7008ec91",
-          "name": "Upwork Get Job Details",
-          "request": {
-            "name": "Upwork Get Job Details",
-            "description": {
-              "content": "Retrieve detailed information for a specific job posting by its ID.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "api",
-                "v3",
-                "jobs",
-                ":job_id"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": [
-                {
-                  "disabled": false,
-                  "type": "any",
-                  "value": "<string>",
-                  "key": "job_id",
-                  "description": "(Required) The unique identifier of the job posting"
-                }
-              ]
-            },
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json"
-              }
-            ],
-            "method": "GET",
-            "auth": null
-          },
-          "response": [
-            {
-              "id": "5e2fda97-4b48-4d49-8049-43d0cab94b46",
-              "name": "Job posting details",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v3",
-                    "jobs",
-                    ":job_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "job_id",
-                      "description": "(Required) The unique identifier of the job posting"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "OK",
-              "code": 200,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"id\": \"~0123456789abcdef\",\n  \"title\": \"Python Developer for Data Pipeline\",\n  \"description\": \"Looking for an experienced Python developer...\",\n  \"status\": \"open\",\n  \"budget\": {\n    \"amount\": 5000,\n    \"currency\": \"USD\"\n  }\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            },
-            {
-              "id": "b252fe44-4c9f-484a-99ee-6ec324302b3d",
-              "name": "Job not found",
-              "originalRequest": {
-                "url": {
-                  "path": [
-                    "api",
-                    "v3",
-                    "jobs",
-                    ":job_id"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": [
-                    {
-                      "disabled": false,
-                      "type": "any",
-                      "value": "<string>",
-                      "key": "job_id",
-                      "description": "(Required) The unique identifier of the job posting"
-                    }
-                  ]
-                },
-                "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: oauth2",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "<token>"
-                  },
-                  {
-                    "key": "Accept",
-                    "value": "application/json"
-                  }
-                ],
-                "method": "GET",
-                "body": {}
-              },
-              "status": "Not Found",
-              "code": 404,
-              "header": [
-                {
-                  "key": "Content-Type",
-                  "value": "application/json"
-                }
-              ],
-              "body": "{\n  \"error\": \"unauthorized\",\n  \"message\": \"Authentication failed. Please check your credentials.\",\n  \"code\": 401\n}",
-              "cookie": [],
-              "_postman_previewlanguage": "json"
-            }
-          ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-21T20:01:59.000Z",
+          "updatedAt": "2026-10-21T20:01:59.000Z",
+          "uid": "35240-35bce492-17a5-412d-98a8-0670739b2c83"
         }
       ],
-      "event": []
-    }
-  ],
-  "event": [],
-  "variable": [
+      "id": "d112a475-c2f8-4a05-aded-ac7b142577a3",
+      "createdAt": "2026-10-21T20:01:59.000Z",
+      "updatedAt": "2026-10-21T20:01:59.000Z",
+      "uid": "35240-d112a475-c2f8-4a05-aded-ac7b142577a3"
+    },
     {
-      "type": "string",
-      "value": "https://api.upwork.com",
-      "key": "baseUrl"
+      "name": "api",
+      "item": [
+        {
+          "name": "v3",
+          "item": [
+            {
+              "name": "jobs",
+              "item": [
+                {
+                  "name": "search",
+                  "item": [
+                    {
+                      "name": "Upwork Search Jobs",
+                      "id": "bfd68d42-d3e8-4e76-aaee-4899dbbe915e",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/jobs/search?q=<string>&skills=<string>&budget=<string>&paging=<string>&sort=relevance",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "jobs",
+                            "search"
+                          ],
+                          "query": [
+                            {
+                              "description": "Search query string",
+                              "key": "q",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of required skills",
+                              "key": "skills",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Budget range as min-max",
+                              "key": "budget",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Pagination as offset;count",
+                              "key": "paging",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Sort order for results",
+                              "key": "sort",
+                              "value": "relevance"
+                            }
+                          ]
+                        },
+                        "description": "Search for job postings on the Upwork marketplace using REST API. Returns paginated list of job listings matching search criteria."
+                      },
+                      "response": [
+                        {
+                          "id": "2d77df55-37ce-4907-9327-cf80d0a6d98b",
+                          "name": "Paginated list of job postings",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/jobs/search?q=<string>&skills=<string>&budget=<string>&paging=<string>&sort=relevance",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "jobs",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Search query string",
+                                  "key": "q",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of required skills",
+                                  "key": "skills",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Budget range as min-max",
+                                  "key": "budget",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Pagination as offset;count",
+                                  "key": "paging",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Sort order for results",
+                                  "key": "sort",
+                                  "value": "relevance"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"total\": \"<integer>\",\n  \"paging\": {\n    \"offset\": \"<integer>\",\n    \"count\": \"<integer>\",\n    \"total\": \"<integer>\"\n  },\n  \"jobs\": [\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"draft\",\n      \"budget\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"skills\": [\n        {\n          \"name\": \"<string>\",\n          \"uid\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"uid\": \"<string>\"\n        }\n      ],\n      \"createdDateTime\": \"<dateTime>\",\n      \"client\": {\n        \"id\": \"<string>\",\n        \"country\": \"<string>\",\n        \"totalSpent\": \"<number>\",\n        \"rating\": \"<number>\"\n      },\n      \"jobType\": \"hourly\",\n      \"duration\": \"<string>\",\n      \"experienceLevel\": \"intermediate\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"title\": \"<string>\",\n      \"description\": \"<string>\",\n      \"status\": \"draft\",\n      \"budget\": {\n        \"amount\": \"<number>\",\n        \"currency\": \"<string>\"\n      },\n      \"skills\": [\n        {\n          \"name\": \"<string>\",\n          \"uid\": \"<string>\"\n        },\n        {\n          \"name\": \"<string>\",\n          \"uid\": \"<string>\"\n        }\n      ],\n      \"createdDateTime\": \"<dateTime>\",\n      \"client\": {\n        \"id\": \"<string>\",\n        \"country\": \"<string>\",\n        \"totalSpent\": \"<number>\",\n        \"rating\": \"<number>\"\n      },\n      \"jobType\": \"hourly\",\n      \"duration\": \"<string>\",\n      \"experienceLevel\": \"intermediate\"\n    }\n  ]\n}",
+                          "createdAt": "2026-10-21T20:01:59.000Z",
+                          "updatedAt": "2026-10-21T20:01:59.000Z",
+                          "uid": "35240-2d77df55-37ce-4907-9327-cf80d0a6d98b"
+                        },
+                        {
+                          "id": "ea7d97c3-0539-4d80-8b66-a8647ee29245",
+                          "name": "Unauthorized",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/jobs/search?q=<string>&skills=<string>&budget=<string>&paging=<string>&sort=relevance",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "jobs",
+                                "search"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Search query string",
+                                  "key": "q",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Comma-separated list of required skills",
+                                  "key": "skills",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Budget range as min-max",
+                                  "key": "budget",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Pagination as offset;count",
+                                  "key": "paging",
+                                  "value": "<string>"
+                                },
+                                {
+                                  "description": "Sort order for results",
+                                  "key": "sort",
+                                  "value": "relevance"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:01:59.000Z",
+                          "updatedAt": "2026-10-21T20:01:59.000Z",
+                          "uid": "35240-ea7d97c3-0539-4d80-8b66-a8647ee29245"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:01:59.000Z",
+                      "updatedAt": "2026-10-21T20:01:59.000Z",
+                      "uid": "35240-bfd68d42-d3e8-4e76-aaee-4899dbbe915e"
+                    }
+                  ],
+                  "id": "ed5a7292-a1eb-4781-a1f4-c9e357166c86",
+                  "createdAt": "2026-10-21T20:01:59.000Z",
+                  "updatedAt": "2026-10-21T20:01:59.000Z",
+                  "uid": "35240-ed5a7292-a1eb-4781-a1f4-c9e357166c86"
+                },
+                {
+                  "name": "{job_id}",
+                  "item": [
+                    {
+                      "name": "Upwork Get Job Details",
+                      "id": "0ae60c6f-83ee-42fb-b6a5-c191f1a6055a",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/v3/jobs/:job_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "v3",
+                            "jobs",
+                            ":job_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "cd93ecc0-80d7-4cdc-ab74-4991c2abbd66",
+                              "key": "job_id",
+                              "value": "<string>",
+                              "description": "(Required) The unique identifier of the job posting"
+                            }
+                          ]
+                        },
+                        "description": "Retrieve detailed information for a specific job posting by its ID."
+                      },
+                      "response": [
+                        {
+                          "id": "9e60108d-5949-4020-adfc-001537c07ecc",
+                          "name": "Job posting details",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/jobs/:job_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "jobs",
+                                ":job_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "job_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"title\": \"<string>\",\n  \"description\": \"<string>\",\n  \"status\": \"open\",\n  \"budget\": {\n    \"amount\": \"<number>\",\n    \"currency\": \"<string>\"\n  },\n  \"skills\": [\n    {\n      \"name\": \"<string>\",\n      \"uid\": \"<string>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"uid\": \"<string>\"\n    }\n  ],\n  \"createdDateTime\": \"<dateTime>\",\n  \"client\": {\n    \"id\": \"<string>\",\n    \"country\": \"<string>\",\n    \"totalSpent\": \"<number>\",\n    \"rating\": \"<number>\"\n  },\n  \"jobType\": \"fixed-price\",\n  \"duration\": \"<string>\",\n  \"experienceLevel\": \"entry\"\n}",
+                          "createdAt": "2026-10-21T20:01:59.000Z",
+                          "updatedAt": "2026-10-21T20:01:59.000Z",
+                          "uid": "35240-9e60108d-5949-4020-adfc-001537c07ecc"
+                        },
+                        {
+                          "id": "bcf80708-4978-4a4c-97c6-15dc64ce8762",
+                          "name": "Job not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: oauth2",
+                                "key": "Authorization",
+                                "value": "<token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/v3/jobs/:job_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "v3",
+                                "jobs",
+                                ":job_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "job_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"code\": \"<integer>\"\n}",
+                          "createdAt": "2026-10-21T20:01:59.000Z",
+                          "updatedAt": "2026-10-21T20:01:59.000Z",
+                          "uid": "35240-bcf80708-4978-4a4c-97c6-15dc64ce8762"
+                        }
+                      ],
+                      "createdAt": "2026-10-21T20:01:59.000Z",
+                      "updatedAt": "2026-10-21T20:01:59.000Z",
+                      "uid": "35240-0ae60c6f-83ee-42fb-b6a5-c191f1a6055a"
+                    }
+                  ],
+                  "id": "93a44853-0621-4108-8d56-08cbafa1ea94",
+                  "createdAt": "2026-10-21T20:01:59.000Z",
+                  "updatedAt": "2026-10-21T20:01:59.000Z",
+                  "uid": "35240-93a44853-0621-4108-8d56-08cbafa1ea94"
+                }
+              ],
+              "id": "269c2d43-3900-4b4a-a90f-9946099d636e",
+              "createdAt": "2026-10-21T20:01:59.000Z",
+              "updatedAt": "2026-10-21T20:01:59.000Z",
+              "uid": "35240-269c2d43-3900-4b4a-a90f-9946099d636e"
+            }
+          ],
+          "id": "e13cfba3-086b-4bec-be44-8fa2bc71be2c",
+          "createdAt": "2026-10-21T20:01:59.000Z",
+          "updatedAt": "2026-10-21T20:01:59.000Z",
+          "uid": "35240-e13cfba3-086b-4bec-be44-8fa2bc71be2c"
+        }
+      ],
+      "id": "35ce8313-99ad-4ea2-b442-5c403281cbc4",
+      "createdAt": "2026-10-21T20:01:59.000Z",
+      "updatedAt": "2026-10-21T20:01:59.000Z",
+      "uid": "35240-35ce8313-99ad-4ea2-b442-5c403281cbc4"
     }
   ],
   "auth": {
@@ -583,29 +630,30 @@
     "oauth2": [
       {
         "key": "scope",
-        "value": "openid email profile jobs:read contracts:read messages:read messages:write profiles:read reports:read"
+        "value": "openid email profile jobs:read contracts:read messages:read messages:write profiles:read reports:read",
+        "type": "string"
       },
       {
         "key": "accessTokenUrl",
-        "value": "https://www.upwork.com/api/v3/oauth2/token"
+        "value": "https://www.upwork.com/api/v3/oauth2/token",
+        "type": "string"
       },
       {
         "key": "authUrl",
-        "value": "https://www.upwork.com/ab/account-security/oauth2/authorize"
+        "value": "https://www.upwork.com/ab/account-security/oauth2/authorize",
+        "type": "string"
       },
       {
         "key": "grant_type",
-        "value": "authorization_code"
+        "value": "authorization_code",
+        "type": "string"
       }
     ]
   },
-  "info": {
-    "_postman_id": "d66c32fb-28aa-4ee8-a8e0-265f276fd72d",
-    "name": "Upwork GraphQL Authentication Jobs API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The primary Upwork API surface, providing GraphQL queries and mutations for job search, profile access, contract management, and messaging. The API is accessed at a single GraphQL endpoint using POST requests with JSON bodies containing queries and variables. Authentication uses OAuth 2.0 authorization code flow with Bearer tokens. GraphQL subscriptions are supported for real-time webhook event notifications.\n\nContact Support:\n Name: Upwork Developer Support",
-      "type": "text/plain"
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.upwork.com"
     }
-  }
+  ]
 }
